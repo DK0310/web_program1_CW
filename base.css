@@ -1,0 +1,167 @@
+/* === CÀI ĐẶT CHUNG & BỐ CỤC === */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; /* Giúp quản lý padding và border dễ dàng hơn */
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1.2em;
+    background-color: #ffffff; /* Thêm màu nền cho khu vực bên ngoài */
+}
+
+/* Bố cục chính với chiều rộng cố định và căn giữa */
+.container {
+    width: 1000px;
+    margin: 0 auto; /* Căn giữa layout */
+    background-color: #f7f7f7; /* Màu nền cho nội dung chính */
+    box-shadow: 0 0 15px rgba(0,0,0,0.5); /* Thêm hiệu ứng đổ bóng */
+}
+
+main {
+    overflow: auto; /* Đảm bảo main chứa các element con */
+    min-height: 40vh; /* Chiều cao tối thiểu */
+    padding: 20px;
+}
+
+p {
+    margin-bottom: 1em;
+}
+
+/* === HEADER === */
+header {
+    background-color: #464759;
+    padding: 20px;
+    border-bottom: 5px solid #757575;
+}
+
+header h1 {
+    color: white;
+    font-weight: normal;
+    text-shadow: 1px 1px 1px #444;
+}
+
+/* === THANH ĐIỀU HƯỚNG (NAVIGATION) === */
+nav {
+    background-color: #464646;
+}
+
+nav ul {
+    display: table;
+    width: 100%;
+    list-style-type: none;
+}
+
+nav li {
+    display: table-cell;
+    text-align: center;
+}
+
+nav a {
+    display: block; /* Giúp click được toàn bộ vùng */
+    padding: 1em;
+    color: white;
+    text-decoration: none;
+    transition: background-color 0.3s;
+}
+
+nav a:hover {
+    background-color: #3a3a3a;
+    color: #ddd;
+}
+
+/* === BIỂU MẪU (FORMS) === */
+form {
+    overflow: auto;
+    clear: both;
+    display: block;
+    margin-top: 20px;
+}
+
+form label {
+    float: left;
+    width: 15em;
+    padding-top: 0.5em; /* Căn chỉnh với input */
+    clear: left;
+}
+
+form input[type="text"],
+form input[type="email"],
+form select,
+form textarea {
+    float: left;
+    width: 20em; /* Tăng chiều rộng một chút */
+    margin-bottom: 1em;
+    padding: 0.5em;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+form input[type="submit"] {
+    margin-left: 15em; /* Đẩy nút submit thẳng hàng với các input */
+    width: auto;
+    padding: 0.7em 1.5em;
+    clear: both;
+    font-size: 1em;
+    background-color: #3cbc8d;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+form input[type="submit"]:hover {
+    background-color: #2e9a72;
+}
+
+
+/* === CÁC THÀNH PHẦN KHÁC === */
+
+/* Định dạng cho các khối trích dẫn hoặc bài đăng */
+blockquote {
+    display: table;
+    width: 100%;
+    margin-bottom: 1em;
+    border-bottom: 1px solid #ccc;
+    padding: 0.5em;
+}
+
+blockquote p {
+    display: table-cell;
+    width: 80%;
+    vertical-align: top;
+}
+
+blockquote .actions {
+    display: table-cell;
+    width: 20%;
+    text-align: right;
+    vertical-align: middle;
+}
+
+/* Định dạng cho thông báo lỗi */
+.errors {
+    padding: 1em;
+    margin-bottom: 1em;
+    border: 1px solid red;
+    background-color: #fff2f2;
+    color: #c51212;
+    border-radius: 5px;
+    overflow: auto;
+}
+
+.errors ul {
+    margin-left: 1.5em;
+}
+
+
+/* === FOOTER === */
+footer {
+    padding: 1.5em;
+    background-color: #FFC9A7;
+    font-size: 0.8em;
+    text-align: center;
+    border-top: 5px solid #757575;
+}
