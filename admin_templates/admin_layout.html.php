@@ -17,6 +17,7 @@
             <?php if (!empty($_SESSION['admin_id'])): ?>
                 <li><a href="question.php">Question List</a></li>
                 <li><a href="users.php">View all users</a></li>
+                <li><a href="manage_module.php">Manage Modules</a></li>
                 <li><a href="../logout.php">Logout</a></li>
             <?php else: ?>
                 <li><a href="../index.php">Back</a></li>

@@ -1,4 +1,10 @@
-<?php 
+<?php
+session_start();
+if (empty($_SESSION['user_id'])) {
+    header('Location: login.php');
+    exit;
+}
+
 if(isset($_POST['content'])){
     try{
         include 'db/db.php';
@@ -6,7 +12,10 @@ if(isset($_POST['content'])){
 
         $imagePath = handleImageUpload();
 
-        insertQuestion($pdo, $_POST['content'], $_POST['userid'], $_POST['moduleid'], $imagePath);
+        $userid = $_SESSION['user_id'];
+        $moduleid = $_POST['moduleid'] ?? null;
+
+        insertQuestion($pdo, $_POST['content'], $userid, $moduleid, $imagePath);
         header('location: question.php');
     }catch (PDOException $e){
         $title = 'An error has occured';
@@ -16,7 +25,6 @@ if(isset($_POST['content'])){
     include 'db/db.php'; 
     include 'db/db_function.php';
     $title = 'Add a new question';
-    $users = allUsers($pdo);
     $modules = allModules($pdo);
     ob_start();
     include 'templates/addquestion.html.php';

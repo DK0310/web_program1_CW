@@ -20,6 +20,7 @@
                 <?php elseif (!empty($_SESSION['user_id'])): ?>
                     <li><a href="index.php">Home</a></li>
                     <li><a href="addquestion.php">Create a question</a></li>
+                    <li><a href="user_posts.php">My Posts</a></li>
                     <li><a href="logout.php">Logout</a></li>
                 <?php else: ?>
                     <li><a href="login_choice.php">Login</a></li>

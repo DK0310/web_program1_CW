@@ -4,8 +4,8 @@ function insertQuestion($pdo, $content, $userid, $moduleid, $imagePath){
             VALUES (:content, NOW(), :userid, :moduleid, :image_path)';
     $paraments = [
         ':content'    => $content,
-        ':userid'    => $userid,
-        ':moduleid'  => $moduleid,
+        ':userid'     => $userid,
+        ':moduleid'   => $moduleid,
         ':image_path' => $imagePath
     ];
     query($pdo, $query, $paraments);
@@ -18,7 +18,7 @@ function deleteQuestion($pdo, $questionid){
 }
 
 function getAllQuestions($pdo){
-    $query = 'SELECT question.id, question.content, question.date, question.image_path AS image, user.name AS name, user.email AS email FROM question LEFT JOIN user ON question.userid = user.id ORDER BY question.id DESC';
+    $query = 'SELECT question.id, question.content, question.date, question.image_path AS image, question.userid AS userid, user.name AS name, user.email AS email, module.name AS module FROM question LEFT JOIN user ON question.userid = user.id LEFT JOIN module ON question.moduleid = module.id ORDER BY question.id DESC';
     return query($pdo, $query)->fetchAll(PDO::FETCH_ASSOC);
 }
 
@@ -34,18 +34,19 @@ function query($pdo, $query, $paraments = []){
     return $query;
 }
 
-function editQuestion($pdo, $id, $content){
-    $query = 'UPDATE question SET content = :content WHERE id = :id';
+function editQuestion($pdo, $id, $content, $moduleid = null){
+    $query = 'UPDATE question SET content = :content, moduleid = :moduleid WHERE id = :id';
     $paraments = [
-        ':id'      => $id,
-        ':content' => $content
+        ':id' => $id,
+        ':content' => $content,
+        ':moduleid' => $moduleid
     ];
     query($pdo, $query, $paraments);
 }
 
 function allModules($pdo){
     $query = 'SELECT * FROM module';
-    return query($pdo, $query)->fetchAll();
+    return query($pdo, $query)->fetchAll(PDO::FETCH_ASSOC);
 }
 
 function allUsers($pdo){
@@ -85,24 +86,35 @@ function handleImageUpload($inputName = 'image') {
 }
 
 function getUserByName($pdo, $name){
-    $params = [':name' => $name];
-    return query($pdo, 'SELECT * FROM user WHERE name = :name', $params)->fetch(PDO::FETCH_ASSOC);
+    $paraments = [':name' => $name];
+    return query($pdo, 'SELECT * FROM user WHERE name = :name', $paraments)->fetch(PDO::FETCH_ASSOC);
 }
 
 function createUser($pdo, $name, $passwordHash, $email = null){
     $query = 'INSERT INTO user (name, password, email) VALUES (:name, :password, :email)';
-    $params = [
+    $paraments = [
         ':name' => $name,
         ':password' => $passwordHash,
         ':email' => $email
     ];
-    query($pdo, $query, $params);
+    query($pdo, $query, $paraments);
     return $pdo->lastInsertId();
 }
 
 function getAdminByName($pdo, $name){
-    $params = [':name' => $name];
-    return query($pdo, 'SELECT * FROM admin WHERE name = :name', $params)->fetch(PDO::FETCH_ASSOC);
+    $paraments = [':name' => $name];
+    return query($pdo, 'SELECT * FROM admin WHERE name = :name', $paraments)->fetch(PDO::FETCH_ASSOC);
+}
+
+function deleteQuestionsByUser($pdo, $userid){
+    $paraments = [':userid' => $userid];
+    query($pdo, 'DELETE FROM question WHERE userid = :userid', $paraments);
+}
+
+function deleteUser($pdo, $userid){
+    deleteQuestionsByUser($pdo, $userid);
+    $paraments = [':id' => $userid];
+    query($pdo, 'DELETE FROM user WHERE id = :id', $paraments);
 }
 
 ?>
