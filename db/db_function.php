@@ -117,4 +117,16 @@ function deleteUser($pdo, $userid){
     query($pdo, 'DELETE FROM user WHERE id = :id', $paraments);
 }
 
+function insertEmail($pdo, $content, $userid){
+    $query = 'INSERT INTO email (content, userid, date) VALUES (:content, :userid, NOW())';
+    $params = [':content' => $content, ':userid' => $userid];
+    query($pdo, $query, $params);
+    return $pdo->lastInsertId();
+}
+
+function getAllEmails($pdo){
+    $query = 'SELECT email.id, email.content, email.date, email.userid, user.name AS username, user.email AS useremail FROM email LEFT JOIN user ON email.userid = user.id ORDER BY email.id DESC';
+    return query($pdo, $query)->fetchAll(PDO::FETCH_ASSOC);
+}
+
 ?>

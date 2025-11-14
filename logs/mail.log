@@ -1,0 +1,120 @@
+2025-11-14 06:11:16 [Debug-3] Connection: opening to smtp.gmail.com:587, timeout=300, options=array (
+  'ssl' => 
+  array (
+    'verify_peer' => false,
+    'verify_peer_name' => false,
+    'allow_self_signed' => true,
+  ),
+)
+2025-11-14 06:11:16 [Debug-3] Connection: opened
+2025-11-14 06:11:16 [Debug-2] SERVER -> CLIENT: 220 smtp.gmail.com ESMTP 41be03b00d2f7-bc37517864asm3568342a12.17 - gsmtp
+
+2025-11-14 06:11:16 [Debug-1] CLIENT -> SERVER: EHLO localhost
+
+2025-11-14 06:11:16 [Debug-2] SERVER -> CLIENT: 250-smtp.gmail.com at your service, [115.79.208.171]
+250-SIZE 35882577
+250-8BITMIME
+250-STARTTLS
+250-ENHANCEDSTATUSCODES
+250-PIPELINING
+250-CHUNKING
+250 SMTPUTF8
+
+2025-11-14 06:11:16 [Debug-1] CLIENT -> SERVER: STARTTLS
+
+2025-11-14 06:11:17 [Debug-2] SERVER -> CLIENT: 220 2.0.0 Ready to start TLS
+
+2025-11-14 06:11:17 [Debug-1] CLIENT -> SERVER: EHLO localhost
+
+2025-11-14 06:11:17 [Debug-2] SERVER -> CLIENT: 250-smtp.gmail.com at your service, [115.79.208.171]
+250-SIZE 35882577
+250-8BITMIME
+250-AUTH LOGIN PLAIN XOAUTH2 PLAIN-CLIENTTOKEN OAUTHBEARER XOAUTH
+250-ENHANCEDSTATUSCODES
+250-PIPELINING
+250-CHUNKING
+250 SMTPUTF8
+
+2025-11-14 06:11:17 [Debug-1] CLIENT -> SERVER: AUTH LOGIN
+
+2025-11-14 06:11:17 [Debug-2] SERVER -> CLIENT: 334 VXNlcm5hbWU6
+
+2025-11-14 06:11:17 [Debug-1] CLIENT -> SERVER: [credentials hidden]
+2025-11-14 06:11:17 [Debug-2] SERVER -> CLIENT: 334 UGFzc3dvcmQ6
+
+2025-11-14 06:11:17 [Debug-1] CLIENT -> SERVER: [credentials hidden]
+2025-11-14 06:11:18 [Debug-2] SERVER -> CLIENT: 235 2.7.0 Accepted
+
+2025-11-14 06:11:18 [Debug-1] CLIENT -> SERVER: MAIL FROM:<khangledoandeptrai@gmail.com>
+
+2025-11-14 06:11:18 [Debug-2] SERVER -> CLIENT: 250 2.1.0 OK 41be03b00d2f7-bc37517864asm3568342a12.17 - gsmtp
+
+2025-11-14 06:11:18 [Debug-1] CLIENT -> SERVER: RCPT TO:<khangledoandeptrai@gmail.com>
+
+2025-11-14 06:11:18 [Debug-2] SERVER -> CLIENT: 250 2.1.5 OK 41be03b00d2f7-bc37517864asm3568342a12.17 - gsmtp
+
+2025-11-14 06:11:18 [Debug-1] CLIENT -> SERVER: DATA
+
+2025-11-14 06:11:19 [Debug-2] SERVER -> CLIENT: 354 Go ahead 41be03b00d2f7-bc37517864asm3568342a12.17 - gsmtp
+
+2025-11-14 06:11:19 [Debug-1] CLIENT -> SERVER: Date: Fri, 14 Nov 2025 06:11:16 +0100
+
+2025-11-14 06:11:19 [Debug-1] CLIENT -> SERVER: To: khangledoandeptrai@gmail.com
+
+2025-11-14 06:11:19 [Debug-1] CLIENT -> SERVER: From: Student Forum <khangledoandeptrai@gmail.com>
+
+2025-11-14 06:11:19 [Debug-1] CLIENT -> SERVER: Subject: PHPMailer test 2025-11-14 06:11:16
+
+2025-11-14 06:11:19 [Debug-1] CLIENT -> SERVER: Message-ID: <eBPW8WlbuvuXKwN9DKtdeUSDxTuYXGyHFFyKTrxc@localhost>
+
+2025-11-14 06:11:19 [Debug-1] CLIENT -> SERVER: X-Mailer: PHPMailer 7.0.0 (https://github.com/PHPMailer/PHPMailer)
+
+2025-11-14 06:11:19 [Debug-1] CLIENT -> SERVER: MIME-Version: 1.0
+
+2025-11-14 06:11:19 [Debug-1] CLIENT -> SERVER: Content-Type: multipart/alternative;
+
+2025-11-14 06:11:19 [Debug-1] CLIENT -> SERVER:  boundary="b1=_eBPW8WlbuvuXKwN9DKtdeUSDxTuYXGyHFFyKTrxc"
+
+2025-11-14 06:11:19 [Debug-1] CLIENT -> SERVER: Content-Transfer-Encoding: 8bit
+
+2025-11-14 06:11:19 [Debug-1] CLIENT -> SERVER: 
+
+2025-11-14 06:11:19 [Debug-1] CLIENT -> SERVER: --b1=_eBPW8WlbuvuXKwN9DKtdeUSDxTuYXGyHFFyKTrxc
+
+2025-11-14 06:11:19 [Debug-1] CLIENT -> SERVER: Content-Type: text/plain; charset=us-ascii
+
+2025-11-14 06:11:19 [Debug-1] CLIENT -> SERVER: 
+
+2025-11-14 06:11:19 [Debug-1] CLIENT -> SERVER: Test email body
+
+2025-11-14 06:11:19 [Debug-1] CLIENT -> SERVER: Sent at 2025-11-14T06:11:16+01:00
+
+2025-11-14 06:11:19 [Debug-1] CLIENT -> SERVER: 
+
+2025-11-14 06:11:19 [Debug-1] CLIENT -> SERVER: --b1=_eBPW8WlbuvuXKwN9DKtdeUSDxTuYXGyHFFyKTrxc
+
+2025-11-14 06:11:19 [Debug-1] CLIENT -> SERVER: Content-Type: text/html; charset=us-ascii
+
+2025-11-14 06:11:19 [Debug-1] CLIENT -> SERVER: 
+
+2025-11-14 06:11:19 [Debug-1] CLIENT -> SERVER: Test email body
+
+2025-11-14 06:11:19 [Debug-1] CLIENT -> SERVER: Sent at 2025-11-14T06:11:16+01:00
+
+2025-11-14 06:11:19 [Debug-1] CLIENT -> SERVER: 
+
+2025-11-14 06:11:19 [Debug-1] CLIENT -> SERVER: 
+
+2025-11-14 06:11:19 [Debug-1] CLIENT -> SERVER: --b1=_eBPW8WlbuvuXKwN9DKtdeUSDxTuYXGyHFFyKTrxc--
+
+2025-11-14 06:11:19 [Debug-1] CLIENT -> SERVER: 
+
+2025-11-14 06:11:19 [Debug-1] CLIENT -> SERVER: .
+
+2025-11-14 06:11:20 [Debug-2] SERVER -> CLIENT: 250 2.0.0 OK  1763097079 41be03b00d2f7-bc37517864asm3568342a12.17 - gsmtp
+
+2025-11-14 06:11:20 [Debug-1] CLIENT -> SERVER: QUIT
+
+2025-11-14 06:11:20 [Debug-2] SERVER -> CLIENT: 221 2.0.0 closing connection 41be03b00d2f7-bc37517864asm3568342a12.17 - gsmtp
+
+2025-11-14 06:11:20 [Debug-3] Connection: closed
