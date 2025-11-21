@@ -10,10 +10,9 @@
                     <td><?= htmlspecialchars($user['name'], ENT_QUOTES, 'UTF-8') ?></td>
                     <td><?= htmlspecialchars($user['email'] ?? '', ENT_QUOTES, 'UTF-8') ?></td>
                     <td>
-                        <a href="edit_user.php?id=<?= rawurlencode($user['id']) ?>">Edit</a>
                         <form action="delete_user.php" method="post" onsubmit="return confirm('Delete this user and their questions?');" style="display:inline">
                             <input type="hidden" name="id" value="<?= htmlspecialchars($user['id'], ENT_QUOTES, 'UTF-8') ?>">
-                            <input type="submit" value="Delete">
+                            <input class="btn ghost" type="submit" value="Delete">
                         </form>
                     </td>
                 </tr>

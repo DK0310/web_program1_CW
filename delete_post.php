@@ -9,8 +9,8 @@ try{
         throw new Exception('Missing id');
     }
 
-    // if admin logged in, allow delete
-    if (!empty($_SESSION['admin_id'])){
+    // if admin role logged in, allow delete
+    if (!empty($_SESSION['user_role']) && $_SESSION['user_role'] === 'admin'){
         deleteQuestion($pdo, $id);
         header('location: admin/question.php');
         exit;

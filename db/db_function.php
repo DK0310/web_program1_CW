@@ -90,20 +90,21 @@ function getUserByName($pdo, $name){
     return query($pdo, 'SELECT * FROM user WHERE name = :name', $paraments)->fetch(PDO::FETCH_ASSOC);
 }
 
-function createUser($pdo, $name, $passwordHash, $email = null){
-    $query = 'INSERT INTO user (name, password, email) VALUES (:name, :password, :email)';
+function createUser($pdo, $name, $passwordHash, $email = null, $role = 'user'){
+    $query = 'INSERT INTO user (name, password, email, role) VALUES (:name, :password, :email, :role)';
     $paraments = [
         ':name' => $name,
         ':password' => $passwordHash,
-        ':email' => $email
+        ':email' => $email,
+        ':role' => $role
     ];
     query($pdo, $query, $paraments);
     return $pdo->lastInsertId();
 }
 
 function getAdminByName($pdo, $name){
-    $paraments = [':name' => $name];
-    return query($pdo, 'SELECT * FROM admin WHERE name = :name', $paraments)->fetch(PDO::FETCH_ASSOC);
+\    $paraments = [':name' => $name];
+    return query($pdo, 'SELECT * FROM user WHERE name = :name AND role = "admin"', $paraments)->fetch(PDO::FETCH_ASSOC);
 }
 
 function deleteQuestionsByUser($pdo, $userid){
@@ -131,7 +132,7 @@ function getAllEmails($pdo){
 
 function getCommentsByQuestion($pdo, $questionId){
     $params = [':questionid' => $questionId];
-    $query = 'SELECT comment.id, comment.content, comment.date, comment.userid, comment.questionid, comment.moduleid, user.name AS name, user.email AS email, admin.id AS admin_id FROM comment LEFT JOIN user ON comment.userid = user.id LEFT JOIN admin ON user.name = admin.name WHERE comment.questionid = :questionid ORDER BY comment.date ASC';
+    $query = 'SELECT comment.id, comment.content, comment.date, comment.userid, comment.questionid, comment.moduleid, user.name AS name, user.email AS email, user.role AS role FROM comment LEFT JOIN user ON comment.userid = user.id WHERE comment.questionid = :questionid ORDER BY comment.date ASC';
     return query($pdo, $query, $params)->fetchAll(PDO::FETCH_ASSOC);
 }
 

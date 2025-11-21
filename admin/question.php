@@ -1,15 +1,17 @@
 <?php
 session_start();
-if (empty($_SESSION['admin_id'])) {
-    header('Location: login.php');
-    exit;
-}
-
 try {
     include '../db/db.php';
     include '../db/db_function.php';
 
     $questions = getAllQuestions($pdo);
+    // attach comments for each question so the admin template can render them like the public site
+    if (!empty($questions) && is_array($questions)) {
+        foreach ($questions as $i => $q) {
+            $questions[$i]['comments'] = getCommentsByQuestion($pdo, $q['id']);
+        }
+    }
+
     $title = 'Questions List';
 
     ob_start();

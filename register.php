@@ -19,9 +19,10 @@ try{
             $error = 'Username already taken.';
         } else {
             $hash = password_hash($password, PASSWORD_DEFAULT);
-            $newId = createUser($pdo, $name, $hash, $email);
+            $newId = createUser($pdo, $name, $hash, $email, 'user');
             $_SESSION['user_id'] = $newId;
             $_SESSION['user_name'] = $name;
+            $_SESSION['user_role'] = 'user';
             header('Location: question.php');
             exit;
         }

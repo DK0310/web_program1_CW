@@ -1,13 +1,7 @@
 <?php
 session_start();
-// Redirect admin users to admin area
-if (!empty($_SESSION['admin_id'])) {
-    header('Location: admin/question.php');
-    exit;
-}
-// If not logged in as a user, send to login choice screen
 if (empty($_SESSION['user_id'])) {
-    header('Location: login_choice.php');
+    header('Location: login.php');
     exit;
 }
 

@@ -1,7 +1,7 @@
 <?php
 session_start();
-if (empty($_SESSION['admin_id'])) {
-    header('Location: login.php');
+if (empty($_SESSION['user_role']) || $_SESSION['user_role'] !== 'admin') {
+    header('Location: ../login.php');
     exit;
 }
 

@@ -4,7 +4,7 @@ try {
     include 'db/db.php';
     include 'db/db_function.php';
 
-    if (empty($_SESSION['user_id']) && empty($_SESSION['admin_id'])) {
+    if (empty($_SESSION['user_id'])) {
         header('Location: login.php');
         exit;
     }
@@ -17,7 +17,7 @@ try {
             if ($content === '' || !$questionid) {
                 throw new Exception('Missing content or question id');
             }
-            $userid = $_SESSION['admin_id'] ?? $_SESSION['user_id'];
+            $userid = $_SESSION['user_id'];
             // determine module id from question
             $q = query($pdo, 'SELECT moduleid FROM question WHERE id = :id', [':id' => $questionid])->fetch(PDO::FETCH_ASSOC);
             $moduleid = $q['moduleid'] ?? null;
@@ -31,7 +31,7 @@ try {
             $comment = query($pdo, 'SELECT * FROM comment WHERE id = :id', [':id' => $id])->fetch(PDO::FETCH_ASSOC);
             if (!$comment) throw new Exception('Comment not found');
             // admin can delete any, user only own
-            if (!empty($_SESSION['admin_id']) || (!empty($_SESSION['user_id']) && $comment['userid'] == $_SESSION['user_id'])) {
+            if ((!empty($_SESSION['user_role']) && $_SESSION['user_role'] === 'admin') || (!empty($_SESSION['user_id']) && $comment['userid'] == $_SESSION['user_id'])) {
                 deleteComment($pdo, $id);
                 header('Location: question.php');
                 exit;
@@ -44,7 +44,7 @@ try {
             if (!$id || $content === '') throw new Exception('Missing id or content');
             $comment = query($pdo, 'SELECT * FROM comment WHERE id = :id', [':id' => $id])->fetch(PDO::FETCH_ASSOC);
             if (!$comment) throw new Exception('Comment not found');
-            if (!empty($_SESSION['admin_id']) || (!empty($_SESSION['user_id']) && $comment['userid'] == $_SESSION['user_id'])) {
+            if ((!empty($_SESSION['user_role']) && $_SESSION['user_role'] === 'admin') || (!empty($_SESSION['user_id']) && $comment['userid'] == $_SESSION['user_id'])) {
                 editComment($pdo, $id, $content);
                 header('Location: question.php');
                 exit;

@@ -14,19 +14,21 @@
     <nav>
         <?php if (session_status() === PHP_SESSION_NONE) session_start(); ?>
         <ul>
-            <?php if (!empty($_SESSION['admin_id'])): ?>
-                <li><a href="question.php">Question List</a></li>
-                <li><a href="users.php">View all users</a></li>
-                <li><a href="manage_module.php">Manage Modules</a></li>
-                <li><a href="../logout.php">Logout</a></li>
+            <?php if (!empty($_SESSION['user_role']) && $_SESSION['user_role'] === 'admin'): ?>
+                <li><a class="btn" href="question.php">Question List</a></li>
+                <li><a class="btn" href="users.php">View all users</a></li>
+                <li><a class="btn" href="manage_module.php">Manage Modules</a></li>
+                <li><a class="btn secondary" href="../logout.php">Logout</a></li>
             <?php else: ?>
-                <li><a href="../index.php">Back</a></li>
+                <li><a class="btn ghost" href="../index.php">Back</a></li>
             <?php endif; ?>
         </ul>
     </nav>
 
-    <main>
-        <?= $output ?? '' ?>
-    </main>    
+    <div class="container">
+        <main>
+            <?= $output ?? '' ?>
+        </main>
+    </div>
 </body>
 </html>

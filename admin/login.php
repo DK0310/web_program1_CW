@@ -12,11 +12,12 @@ try{
         if ($name === '' || $password === ''){
             $error = 'Username and password are required.';
         } else {
-            $admin = getAdminByName($pdo, $name);
-            // plain-text comparison because admin passwords are stored unhashed
-            if ($admin && isset($admin['password']) && $admin['password'] === $password){
-                $_SESSION['admin_id'] = $admin['id'];
-                $_SESSION['admin_name'] = $admin['name'];
+            $admin = getAdminByName($pdo, $name); // returns user row if role='admin'
+            if ($admin && !empty($admin['password']) && (password_verify($password, $admin['password']) || $admin['password'] === $password)){
+                // login success - store as normal user with admin role
+                $_SESSION['user_id'] = $admin['id'];
+                $_SESSION['user_name'] = $admin['name'];
+                $_SESSION['user_role'] = $admin['role'] ?? 'admin';
                 header('Location: question.php');
                 exit;
             } else {

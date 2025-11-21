@@ -1,6 +1,6 @@
 <h2>Manage Modules</h2>
 
-<p><a href="create_module.php">Create new module</a></p>
+<p><a class="btn" href="create_module.php">Create new module</a></p>
 
 <?php if (!empty($modules) && is_array($modules)): ?>
     <table>
@@ -11,10 +11,10 @@
                     <td><?= htmlspecialchars($m['id'], ENT_QUOTES, 'UTF-8') ?></td>
                     <td><?= htmlspecialchars($m['name'], ENT_QUOTES, 'UTF-8') ?></td>
                     <td>
-                        <a href="edit_module.php?id=<?= rawurlencode($m['id']) ?>">Edit</a>
+                        <a class="btn ghost" href="edit_module.php?id=<?= rawurlencode($m['id']) ?>">Edit</a>
                         <form action="delete_module.php" method="post" onsubmit="return confirm('Delete this module?');" style="display:inline">
                             <input type="hidden" name="id" value="<?= htmlspecialchars($m['id'], ENT_QUOTES, 'UTF-8') ?>">
-                            <input type="submit" value="Delete">
+                            <input class="btn ghost" type="submit" value="Delete">
                         </form>
                     </td>
                 </tr>

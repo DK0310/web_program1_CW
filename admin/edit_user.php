@@ -13,15 +13,14 @@ try {
     if (!$id) throw new Exception('Missing id');
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        $name = trim($_POST['name'] ?? '');
         $email = trim($_POST['email'] ?? '');
 
-        if ($name === '') {
-            $error = 'Name is required.';
+        if ($email === '') {
+            $error = 'Email is required.';
         } elseif ($email !== '' && !filter_var($email, FILTER_VALIDATE_EMAIL)) {
             $error = 'Invalid email address.';
         } else {
-            query($pdo, 'UPDATE user SET name = :name, email = :email WHERE id = :id', [':name' => $name, ':email' => $email !== '' ? $email : null, ':id' => $id]);
+            query($pdo, 'UPDATE user SET email = :email WHERE id = :id', [':email' => $email !== '' ? $email : null, ':id' => $id]);
             header('Location: users.php');
             exit;
         }

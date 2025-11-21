@@ -8,7 +8,6 @@
 
     <label for="moduleid">Module</label>
     <select name="moduleid" id="moduleid">
-        <option value="">(none)</option>
         <?php foreach ($modules as $m): ?>
             <option value="<?= htmlspecialchars($m['id'], ENT_QUOTES, 'UTF-8') ?>" <?= ($q['moduleid'] == $m['id']) ? 'selected' : '' ?>>
                 <?= htmlspecialchars($m['name'], ENT_QUOTES, 'UTF-8') ?>

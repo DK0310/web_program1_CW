@@ -16,10 +16,9 @@ $title = 'Login Choice';
 ob_start();
 ?>
 <h2>Sign in</h2>
-<p>Please choose how to sign in:</p>
+
 <p>
-    <a href="login.php"><button>Login as User</button></a>
-    <a href="admin/login.php"><button>Login as Admin</button></a>
+    <a href="login.php"><button>Login</button></a>
 </p>
 <p>New user? <a href="register.php">Register here</a></p>
 <?php
