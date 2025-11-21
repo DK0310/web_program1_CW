@@ -13,11 +13,7 @@
         </header>
         <nav>
             <ul>
-                <?php if (!empty($_SESSION['admin_id'])): ?>
-                    <li><a href="admin/question.php">Home</a></li>
-                    <li><a href="admin/question.php">View Users</a></li>
-                    <li><a href="logout.php">Logout</a></li>
-                <?php elseif (!empty($_SESSION['user_id'])): ?>
+                <?php if (!empty($_SESSION['user_id'])): ?>
                     <li><a href="index.php">Home</a></li>
                     <li><a href="addquestion.php">Create a question</a></li>
                     <li><a href="user_posts.php">My Posts</a></li>

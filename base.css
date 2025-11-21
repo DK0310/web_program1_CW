@@ -1,27 +1,26 @@
-/* === CÀI ĐẶT CHUNG & BỐ CỤC === */
 * {
     margin: 0;
     padding: 0;
-    box-sizing: border-box; /* Giúp quản lý padding và border dễ dàng hơn */
+    box-sizing: border-box; 
 }
 
 body {
     font-family: Arial, Helvetica, sans-serif;
     font-size: 1.2em;
-    background-color: #ffffff; /* Thêm màu nền cho khu vực bên ngoài */
+    background-color: #ffffff;
 }
 
-/* Bố cục chính với chiều rộng cố định và căn giữa */
+
 .container {
     width: 1000px;
-    margin: 0 auto; /* Căn giữa layout */
-    background-color: #f7f7f7; /* Màu nền cho nội dung chính */
-    box-shadow: 0 0 15px rgba(0,0,0,0.5); /* Thêm hiệu ứng đổ bóng */
+    margin: 0 auto;
+    background-color: #f7f7f7;
+    box-shadow: 0 0 15px rgba(0,0,0,0.5);
 }
 
 main {
-    overflow: auto; /* Đảm bảo main chứa các element con */
-    min-height: 40vh; /* Chiều cao tối thiểu */
+    overflow: auto;
+    min-height: 40vh;
     padding: 20px;
 }
 
@@ -29,7 +28,6 @@ p {
     margin-bottom: 1em;
 }
 
-/* === HEADER === */
 header {
     background-color: #464759;
     padding: 20px;
@@ -42,7 +40,6 @@ header h1 {
     text-shadow: 1px 1px 1px #444;
 }
 
-/* === THANH ĐIỀU HƯỚNG (NAVIGATION) === */
 nav {
     background-color: #464646;
 }
@@ -59,7 +56,7 @@ nav li {
 }
 
 nav a {
-    display: block; /* Giúp click được toàn bộ vùng */
+    display: block; 
     padding: 1em;
     color: white;
     text-decoration: none;
@@ -71,7 +68,7 @@ nav a:hover {
     color: #ddd;
 }
 
-/* === BIỂU MẪU (FORMS) === */
+
 form {
     overflow: auto;
     clear: both;
@@ -82,7 +79,7 @@ form {
 form label {
     float: left;
     width: 15em;
-    padding-top: 0.5em; /* Căn chỉnh với input */
+    padding-top: 0.5em; 
     clear: left;
 }
 
@@ -91,7 +88,7 @@ form input[type="email"],
 form select,
 form textarea {
     float: left;
-    width: 20em; /* Tăng chiều rộng một chút */
+    width: 20em; 
     margin-bottom: 1em;
     padding: 0.5em;
     border: 1px solid #ccc;
@@ -99,7 +96,7 @@ form textarea {
 }
 
 form input[type="submit"] {
-    margin-left: 15em; /* Đẩy nút submit thẳng hàng với các input */
+    margin-left: 15em; 
     width: auto;
     padding: 0.7em 1.5em;
     clear: both;
@@ -117,9 +114,6 @@ form input[type="submit"]:hover {
 }
 
 
-/* === CÁC THÀNH PHẦN KHÁC === */
-
-/* Định dạng cho các khối trích dẫn hoặc bài đăng */
 blockquote {
     display: table;
     width: 100%;
@@ -141,7 +135,7 @@ blockquote .actions {
     vertical-align: middle;
 }
 
-/* Định dạng cho thông báo lỗi */
+
 .errors {
     padding: 1em;
     margin-bottom: 1em;
@@ -157,7 +151,6 @@ blockquote .actions {
 }
 
 
-/* === FOOTER === */
 footer {
     padding: 1.5em;
     background-color: #FFC9A7;

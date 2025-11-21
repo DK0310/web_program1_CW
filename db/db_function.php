@@ -129,4 +129,28 @@ function getAllEmails($pdo){
     return query($pdo, $query)->fetchAll(PDO::FETCH_ASSOC);
 }
 
+function getCommentsByQuestion($pdo, $questionId){
+    $params = [':questionid' => $questionId];
+    $query = 'SELECT comment.id, comment.content, comment.date, comment.userid, comment.questionid, comment.moduleid, user.name AS name, user.email AS email, admin.id AS admin_id FROM comment LEFT JOIN user ON comment.userid = user.id LEFT JOIN admin ON user.name = admin.name WHERE comment.questionid = :questionid ORDER BY comment.date ASC';
+    return query($pdo, $query, $params)->fetchAll(PDO::FETCH_ASSOC);
+}
+
+function insertComment($pdo, $content, $userid, $questionid, $moduleid = null){
+    $query = 'INSERT INTO comment (content, date, userid, questionid, moduleid) VALUES (:content, NOW(), :userid, :questionid, :moduleid)';
+    $params = [':content' => $content, ':userid' => $userid, ':questionid' => $questionid, ':moduleid' => $moduleid];
+    query($pdo, $query, $params);
+    return $pdo->lastInsertId();
+}
+
+function editComment($pdo, $id, $content){
+    $query = 'UPDATE comment SET content = :content WHERE id = :id';
+    $params = [':id' => $id, ':content' => $content];
+    query($pdo, $query, $params);
+}
+
+function deleteComment($pdo, $id){
+    $params = [':id' => $id];
+    query($pdo, 'DELETE FROM comment WHERE id = :id', $params);
+}
+
 ?>

@@ -8,7 +8,6 @@ try{
     include 'db/db.php';
     include 'db/db_function.php';
 
-    // optional mail config
     $mailConfig = [];
     if (file_exists(__DIR__ . '/config/mail.php')) {
         $mailConfig = include __DIR__ . '/config/mail.php';
@@ -20,7 +19,6 @@ try{
         if ($content === ''){
             $error = 'Message required.';
         } else {
-            // save to DB
             insertEmail($pdo, $content, $_SESSION['user_id']);
 
             $sent = false;
