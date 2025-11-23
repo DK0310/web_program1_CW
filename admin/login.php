@@ -37,3 +37,4 @@ try{
 }
 
 include '../admin_templates/admin_layout.html.php';
+?>

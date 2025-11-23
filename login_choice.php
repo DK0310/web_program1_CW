@@ -24,3 +24,4 @@ ob_start();
 <?php
 $output = ob_get_clean();
 include 'templates/menu.html.php';
+?>

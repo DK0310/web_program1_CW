@@ -17,7 +17,7 @@
                     <li><a class="btn" href="index.php">Home</a></li>
                     <li><a class="btn" href="addquestion.php">Create a question</a></li>
                     <li><a class="btn" href="user_posts.php">My Posts</a></li>
-                    <li><a class="btn secondary" href="send_email.php">Send email to Admin</a></li>
+                    <li><a class="btn" href="send_email.php">Send email to Admin</a></li>
                     <li><a class="btn" href="profile.php">My Profile</a></li>
                     <?php if (!empty($_SESSION['user_role']) && $_SESSION['user_role'] === 'admin'): ?>
                         <li><a class="btn" href="admin/question.php">Admin area</a></li>
@@ -34,5 +34,6 @@
         <main>
             <?= $output ?>
         </main>
+        <footer>&copy; Greenwich Student Forum 2025 </footer>
     </div>
 </html>

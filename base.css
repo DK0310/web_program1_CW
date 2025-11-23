@@ -146,16 +146,40 @@ table td, table th{ padding:8px; border-bottom:1px solid #eee; }
 }
 
 
+/* Footer (redesigned for a cleaner, modern look) */
 footer {
-    padding: 1.5em;
-    background-color: #FFC9A7;
-    font-size: 0.8em;
-    text-align: center;
-    border-top: 5px solid #757575;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+
+    padding: 12px 16px;
+    margin-top: 18px;
+
+    /* subtle, neutral background and thin top divider */
+    background: linear-gradient(180deg, #fafbfc 0%, #f3f6fb 100%);
+    border-top: 1px solid rgba(0,0,0,0.06);
+    color: #444;
+    font-size: 0.9em;
+    border-radius: 6px;
+    box-shadow: 0 2px 6px rgba(17,24,39,0.03);
 }
 
-/* Responsive */
+footer .left, footer .right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+footer a { color: #4a6cf7; text-decoration: none; }
+footer a:hover { text-decoration: underline; }
+
+/* compact attribution */
+footer .muted { color: #6b6b6b; font-size:0.85em; }
+
 @media (max-width:640px){
     .container { margin:12px; padding:12px; }
     nav ul{ flex-wrap:wrap; }
+    footer { flex-direction: column; align-items: flex-start; }
 }

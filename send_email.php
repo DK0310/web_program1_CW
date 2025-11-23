@@ -1,9 +1,6 @@
 <?php
 session_start();
-if (empty($_SESSION['user_id'])) {
-    header('Location: login.php');
-    exit;
-}
+
 try{
     include 'db/db.php';
     include 'db/db_function.php';
@@ -55,7 +52,7 @@ try{
                 }
             }
 
-            if (!$sent) {
+            /*if (!$sent) {
                 // fallback
                 $to = $mailConfig['admin_address'] ?? 'admin@example.com';
                 $subject = 'New message from user ' . ($_SESSION['user_name'] ?? '');
@@ -63,7 +60,7 @@ try{
                            'Reply-To: ' . ($mailConfig['from_address'] ?? 'no-reply@example.com') . "\r\n" .
                            'X-Mailer: PHP/' . phpversion();
                 @mail($to, $subject, $content, $headers);
-            }
+            }*/
 
             header('Location: question.php');
             exit;
@@ -81,3 +78,4 @@ try{
 }
 
 include 'templates/menu.html.php';
+?>

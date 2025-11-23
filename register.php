@@ -39,3 +39,4 @@ try{
 }
 
 include 'templates/menu.html.php';
+?>

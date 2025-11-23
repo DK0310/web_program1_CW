@@ -1,7 +1,7 @@
 <?php
 session_start();
-if (empty($_SESSION['user_id'])) {
-    header('Location: login.php');
+if (isset($_SESSION['user_role']) && $_SESSION['user_role'] === 'admin') {
+    header('Location: admin/question.php');
     exit;
 }
 try{
@@ -12,8 +12,8 @@ try{
     $user = query($pdo, 'SELECT id, name, email FROM user WHERE id = :id', [':id' => $userId])->fetch(PDO::FETCH_ASSOC);
 
     $error = '';
+    $success = '';
     if ($_SERVER['REQUEST_METHOD'] === 'POST'){
-        // handle updates from profile form
         $name = trim($_POST['name'] ?? '');
         $email = trim($_POST['email'] ?? '');
 
@@ -22,12 +22,11 @@ try{
         } elseif ($email !== '' && !filter_var($email, FILTER_VALIDATE_EMAIL)){
             $error = 'Invalid email address.';
         } else {
-            // update only name and email
-            query($pdo, 'UPDATE user SET name = :name, email = :email WHERE id = :id', [':name' => $name, ':email' => $email, ':id' => $userId]);
-            // refresh session name
+            updateUserProfile($pdo, $userId, $name, $email);
             $_SESSION['user_name'] = $name;
-            header('Location: profile.php');
-            exit;
+            $user['name'] = $name;
+            $user['email'] = $email;
+            $success = 'change successful';
         }
     }
 
@@ -42,3 +41,4 @@ try{
 }
 
 include 'templates/menu.html.php';
+?>

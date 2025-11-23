@@ -1,6 +1,9 @@
 <?php if (!empty($error)): ?>
     <div class="errors"><?= htmlspecialchars($error, ENT_QUOTES, 'UTF-8') ?></div>
 <?php endif; ?>
+<?php if (!empty($success)): ?>
+    <div class="success"><?= htmlspecialchars($success, ENT_QUOTES, 'UTF-8') ?></div>
+<?php endif; ?>
 
 <h2>My Profile</h2>
 <form action="" method="post">
@@ -12,3 +15,6 @@
 
     <input class="btn" type="submit" value="Save">
 </form>
+
+
+

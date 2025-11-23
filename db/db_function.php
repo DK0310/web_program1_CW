@@ -49,6 +49,18 @@ function allModules($pdo){
     return query($pdo, $query)->fetchAll(PDO::FETCH_ASSOC);
 }
 
+function deleteModule($pdo, $moduleid){
+    $query = 'DELETE FROM module WHERE id = :id';
+    $paraments = [':id' => $moduleid];
+    query($pdo, $query, $paraments);
+}
+
+function clearModuleFromQuestions($pdo, $moduleId) {
+    $query = 'UPDATE question SET moduleid = NULL WHERE moduleid = :id';
+    $params = [':id' => $moduleId];
+    query($pdo, $query, $params);
+}
+
 function allUsers($pdo){
     $query = 'SELECT * FROM user';
     return query($pdo, $query)->fetchAll();
@@ -102,8 +114,18 @@ function createUser($pdo, $name, $passwordHash, $email = null, $role = 'user'){
     return $pdo->lastInsertId();
 }
 
+function updateUserProfile($pdo, $id, $name, $email){
+    $query = 'UPDATE user SET name = :name, email = :email WHERE id = :id';
+    $paraments = [
+        ':id' => $id,
+        ':name' => $name,
+        ':email' => $email
+    ];
+    query($pdo, $query, $paraments);
+}
+
 function getAdminByName($pdo, $name){
-\    $paraments = [':name' => $name];
+    $paraments = [':name' => $name];
     return query($pdo, 'SELECT * FROM user WHERE name = :name AND role = "admin"', $paraments)->fetch(PDO::FETCH_ASSOC);
 }
 

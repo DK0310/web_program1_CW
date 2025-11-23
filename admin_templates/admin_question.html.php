@@ -12,7 +12,7 @@
             </div>
 
              <div class="actions">
-                <form action="delete_post.php" method="post" onsubmit="return confirm('Are you sure you want to delete this post?');" style="display:inline">
+                <form action="../admin/delete_post.php" method="post" onsubmit="return confirm('Are you sure you want to delete this post?');" style="display:inline">
                     <input type="hidden" name="id" value="<?= htmlspecialchars($question['id'] ?? '', ENT_QUOTES, 'UTF-8') ?>">
                     <input class="btn ghost" type="submit" value="Delete">
                 </form>
@@ -26,7 +26,7 @@
             <?php
                 // make $comments available for the included template
                 $comments = $question['comments'] ?? [];
-                include '../templates/comment_post.html.php';
+                include 'admin_viewcomment.html.php';
             ?>
         </article>
     <?php endforeach; ?>

@@ -1,26 +1,37 @@
 <?php 
-if(isset($_POST['content'])){
-    try{
-        include '../db/db.php';
-        include '../db/db_function.php';
-
-        $imagePath = handleImageUpload();
-        
-        insertQuestion($pdo, $_POST['content'], $_POST['userid'], $_POST['moduleid'], $imagePath);
-        header('location: question.php');
-    }catch (PDOException $e){
-        $title = 'An error has occured';
-        $output = 'Database error: ' . $e->getMessage();
-    }
-}else{
-    include 'db/db.php'; 
+session_start();
+if (empty($_SESSION['user_role']) || $_SESSION['user_role'] !== 'admin') {
+    header('Location: login.php');
+    exit;
+}
+try{
+    include '../db/db.php';
     include '../db/db_function.php';
-    $title = 'Add a new question';
-    $users = allUsers($pdo);
+
     $modules = allModules($pdo);
+    $error = '';
+
+    // current admin user as author
+    $userid = $_SESSION['user_id'] ?? null;
+    if (empty($userid)) {
+        throw new Exception('Admin user not identified in session.');
+    }
+
+    if(isset($_POST['content'])){
+        $imagePath = handleImageUpload();
+        insertQuestion($pdo, $_POST['content'], $userid, $_POST['moduleid'] ?? null, $imagePath);
+        header('location: question.php');
+        exit;
+    }
+
+    $title = 'Add a new question';
     ob_start();
-    include '../admin_templates/admin_question.html.php';
+    include '../admin_templates/addquestion.html.php';
     $output = ob_get_clean();
+
+} catch (Exception $e){
+    $title = 'An error has occured';
+    $output = 'Error: ' . $e->getMessage();
 }
 include '../admin_templates/admin_layout.html.php';
 ?>

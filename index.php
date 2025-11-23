@@ -1,10 +1,9 @@
 <?php
 session_start();
-if (empty($_SESSION['user_id'])) {
-    header('Location: login.php');
+if (isset($_SESSION['user_role']) && $_SESSION['user_role'] === 'admin') {
+    header('Location: admin/question.php');
     exit;
 }
-
 $title = 'Student Management System';
 ob_start();
 include 'templates/greet.html.php';

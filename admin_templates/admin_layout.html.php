@@ -16,7 +16,9 @@
         <ul>
             <?php if (!empty($_SESSION['user_role']) && $_SESSION['user_role'] === 'admin'): ?>
                 <li><a class="btn" href="question.php">Question List</a></li>
+                <li><a class="btn" href="addquestion.php">Add Post</a></li>
                 <li><a class="btn" href="users.php">View all users</a></li>
+                <li><a class="btn" href="view_emails.php">View user emails</a></li>
                 <li><a class="btn" href="manage_module.php">Manage Modules</a></li>
                 <li><a class="btn secondary" href="../logout.php">Logout</a></li>
             <?php else: ?>
@@ -29,6 +31,7 @@
         <main>
             <?= $output ?? '' ?>
         </main>
+        <footer>&copy; Greenwich Student Forum 2025 </footer>
     </div>
 </body>
 </html>
