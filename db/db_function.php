@@ -181,4 +181,51 @@ function deleteComment($pdo, $id){
     query($pdo, 'DELETE FROM comment WHERE id = :id', $params);
 }
 
+function sendPasswordResetCodeByEmail($mailConfig, $toEmail, $toName, $code) {
+    
+    require __DIR__ . '/../vendor/autoload.php';
+    
+
+    $mail = new PHPMailer\PHPMailer\PHPMailer(true);
+    try {
+        if (!empty($mailConfig['smtp'])) {
+            $mail->isSMTP();
+            $mail->Host = $mailConfig['host'] ?? 'smtp.gmail.com';
+            $mail->SMTPAuth = true;
+            $mail->Username = $mailConfig['username'] ?? '';
+            $mail->Password = $mailConfig['password'] ?? '';
+            $secure = $mailConfig['secure'] ?? 'tls';
+            $mail->SMTPSecure = ($secure === 'ssl') ? PHPMailer\PHPMailer\PHPMailer::ENCRYPTION_SMTPS : PHPMailer\PHPMailer\PHPMailer::ENCRYPTION_STARTTLS;
+            $mail->Port = $mailConfig['port'] ?? 587;
+
+         
+        }
+
+        $from = $mailConfig['from_address'] ?? 'no-reply@example.com';
+        $fromName = $mailConfig['from_name'] ?? 'Site';
+        $adminTo = $mailConfig['admin_address'] ?? $toEmail;
+
+        $mail->setFrom($from, $fromName);
+        $mail->addAddress($toEmail, $toName);
+        $mail->Subject = 'Your verification code';
+        $mail->isHTML(true);
+        $mail->Body = "<p>Your verification code is: <strong>{$code}</strong></p><p>This code is valid for 5 minutes.</p>";
+        $mail->AltBody = "Your verification code is: {$code}\nThis code is valid for 5 minutes.";
+
+        $mail->send();
+        return true;
+    } catch (Exception $e) {
+        error_log('Mail error: ' . ($e->getMessage() ?? $mail->ErrorInfo));
+        return false;
+    }
+}
+
+function updatePassword($pdo, $userid, $newPasswordHash){
+    $query = 'UPDATE user SET password = :password WHERE id = :id';
+    $params = [
+        ':id' => $userid,
+        ':password' => $newPasswordHash
+    ];
+    query($pdo, $query, $params);
+}
 ?>

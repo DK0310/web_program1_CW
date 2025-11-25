@@ -17,3 +17,5 @@
 </form>
 
 <p>New user? <a href="register.php">Register here</a></p>
+<br />
+<p><a href="sendpass.php">Forgot Password?</a></p>
