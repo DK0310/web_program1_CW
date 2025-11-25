@@ -5,14 +5,26 @@ try{
     include 'db/db_function.php';
 
     $error = '';
+    $success = '';
+    
+    // Check for password reset success
+    if (isset($_GET['reset']) && $_GET['reset'] == '1') {
+        $success = 'Your password has been reset successfully! You can now login with your new password.';
+    }
+    
     if ($_SERVER['REQUEST_METHOD'] === 'POST'){
-        $name = trim($_POST['name'] ?? '');
+        $identifier = trim($_POST['name'] ?? ''); // username or email
         $password = $_POST['password'] ?? '';
 
-        if ($name === '' || $password === ''){
-            $error = 'Username and password are required.';
+        if ($identifier === '' || $password === ''){
+            $error = 'Username or email, and password are required.';
         } else {
-            $user = getUserByName($pdo, $name);
+            // use helper to find user by username OR email
+            // pass identifier twice in case the helper expects both params
+            $user = null;
+
+            $user = getUserByNameEmail($pdo, $identifier, $identifier);
+
             if ($user && !empty($user['password']) && (password_verify($password, $user['password']) || $user['password'] === $password)){
                 // login success
                 $_SESSION['user_id'] = $user['id'];

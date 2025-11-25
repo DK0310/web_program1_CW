@@ -97,9 +97,9 @@ function handleImageUpload($inputName = 'image') {
     return $imagePath; // null if no valid image uploaded
 }
 
-function getUserByName($pdo, $name){
-    $paraments = [':name' => $name];
-    return query($pdo, 'SELECT * FROM user WHERE name = :name', $paraments)->fetch(PDO::FETCH_ASSOC);
+function getUserByNameEmail($pdo, $name, $email){
+    $paraments = [':name' => $name, ':email' => $email];
+    return query($pdo, 'SELECT * FROM user WHERE name = :name OR email = :email', $paraments)->fetch(PDO::FETCH_ASSOC);
 }
 
 function createUser($pdo, $name, $passwordHash, $email = null, $role = 'user'){

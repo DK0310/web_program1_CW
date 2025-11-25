@@ -12,7 +12,7 @@
     <label for="password_confirm">Confirm New Password</label><br>
     <input type="password" name="password_confirm" id="password_confirm" required minlength="8"><br><br>
 
-    <input type="submit" value="Set Password">
+    <input class="btn" type="submit" value="Set Password">
 </form>
 
 <p style="font-size: 0.9em; color: #666;">

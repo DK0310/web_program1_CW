@@ -20,12 +20,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $error = "Incorrect verification code.";
     }
 }
+include 'templates/verify.html.php';
 ?>
 
-<form method="post">
-    <label>Enter the 6-digit code sent to your email</label>
-    <input type="text" name="code" required pattern="\d{6}">
-    <button type="submit">Verify</button>
-</form>
 
 <p style="color:red;"><?= htmlspecialchars($error) ?></p>
