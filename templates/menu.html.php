@@ -5,35 +5,45 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="base.css">
-    <title>Document</title>
+    <title><?= htmlspecialchars($title ?? 'Student Forum', ENT_QUOTES, 'UTF-8') ?></title>
 </head>
 <body>
+    <div class="container">
         <header>
             <h1>Student Forum</h1>
-        </header>
-        <nav>
-            <ul>
-                <?php if (!empty($_SESSION['user_id'])): ?>
-                    <li><a class="btn" href="index.php">Home</a></li>
-                    <li><a class="btn" href="addquestion.php">Create a question</a></li>
-                    <li><a class="btn" href="user_posts.php">My Posts</a></li>
-                    <li><a class="btn" href="send_email.php">Send email to Admin</a></li>
-                    <li><a class="btn" href="profile.php">My Profile</a></li>
-                    <?php if (!empty($_SESSION['user_role']) && $_SESSION['user_role'] === 'admin'): ?>
-                        <li><a class="btn" href="admin/question.php">Admin area</a></li>
+            <nav>
+                <ul class="nav-tabs">
+                    <li class="<?= (isset($active) && $active === 'home') ? 'active' : '' ?>">
+                        <a class="btn <?= (isset($active) && $active === 'home') ? '' : 'ghost' ?>" href="index.php">Home</a>
+                    </li>
+                    <?php if (!empty($_SESSION['user_id'])): ?>
+                        <li class="<?= (isset($active) && $active === 'add') ? 'active' : '' ?>">
+                            <a class="btn <?= (isset($active) && $active === 'add') ? '' : 'ghost' ?>" href="addquestion.php">New</a>
+                        </li>
+                        <li class="<?= (isset($active) && $active === 'myposts') ? 'active' : '' ?>">
+                            <a class="btn <?= (isset($active) && $active === 'myposts') ? '' : 'ghost' ?>" href="user_posts.php">My posts</a>
+                        </li>
                     <?php endif; ?>
-                    <li><a class="btn secondary" href="logout.php">Logout</a></li>
-                <?php else: ?>
-                    <li><a class="btn" href="login.php">Login</a></li>
-                    <li><a class="btn secondary" href="register.php">Register</a></li>
-                <?php endif; ?>
-            </ul>
-        </nav>
+                </ul>
 
-    <div class="container">
-        <main>
+                <div class="nav-right">
+                    <?php if (!empty($_SESSION['user_id'])): ?>
+                        <span class="nav-user"><?= htmlspecialchars($_SESSION['user_name'] ?? 'User', ENT_QUOTES, 'UTF-8') ?></span>
+                        <form action="logout.php" method="post" style="display:inline;margin:0">
+                            <button class="btn logout" type="submit">Logout</button>
+                        </form>
+                    <?php else: ?>
+                        <a class="btn ghost" href="login.php">Login</a>
+                    <?php endif; ?>
+                </div>
+            </nav>
+        </header>
+
+        <main class="card">
             <?= $output ?>
         </main>
-        <footer>&copy; Greenwich Student Forum 2025 </footer>
+
+        <footer>&copy; Greenwich Student Forum 2025</footer>
     </div>
+</body>
 </html>

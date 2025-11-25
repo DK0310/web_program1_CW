@@ -4,57 +4,25 @@
     <div class="comments">
         <?php foreach ($comments as $comment): ?>
             <div class="comment">
-                <div class="comment-meta">
-                    <?= htmlspecialchars(date('j M Y', strtotime($comment['date'])), ENT_QUOTES, 'UTF-8') ?> — 
-                    <strong><?= htmlspecialchars($comment['name'] ?? 'Anonymous', ENT_QUOTES, 'UTF-8') ?></strong>
-                    <?php if (!empty($comment['role']) && $comment['role'] === 'admin'): ?>
-                        <span>(admin)</span>
-                    <?php elseif (isset($question['userid']) && $comment['userid'] == $question['userid']): ?>
-                        <span>(author)</span>
-                    <?php endif; ?>
-                </div>
-                <div class="comment-content"><?= nl2br(htmlspecialchars($comment['content'], ENT_QUOTES, 'UTF-8')) ?></div>
-
-                <div class="comment-actions">
-                    <?php
-                        $canDelete = (!empty($_SESSION['user_role']) && $_SESSION['user_role'] === 'admin') || (!empty($_SESSION['user_id']) && $_SESSION['user_id'] == $comment['userid']);
-                        $canEdit = (!empty($_SESSION['user_id']) && $_SESSION['user_id'] == $comment['userid']);
-                    ?>
-
-                    <?php if ($canDelete): ?>
-                        <form action="../admin/comment_post.php" method="post" style="display:inline">
-                            <input type="hidden" name="action" value="delete">
-                            <input type="hidden" name="id" value="<?= htmlspecialchars($comment['id'], ENT_QUOTES, 'UTF-8') ?>">
-                            <input class="btn ghost" type="submit" value="Delete" onclick="return confirm('Delete this comment?');">
-                        </form>
-                    <?php endif; ?>
-
-                    <?php if ($canEdit): ?>
-                        <button class="btn" onclick="document.getElementById('edit-form-<?= htmlspecialchars($comment['id'], ENT_QUOTES, 'UTF-8') ?>').style.display='block'">Edit</button>
-
-                        <form id="edit-form-<?= htmlspecialchars($comment['id'], ENT_QUOTES, 'UTF-8') ?>" action="../admin/comment_post.php" method="post" style="display:none; margin-top:0.5em">
-                            <input type="hidden" name="action" value="edit">
-                            <input type="hidden" name="id" value="<?= htmlspecialchars($comment['id'], ENT_QUOTES, 'UTF-8') ?>">
-                            <textarea name="content" required><?= htmlspecialchars($comment['content'], ENT_QUOTES, 'UTF-8') ?></textarea>
-                            <div style="margin-top:6px">
-                                <input class="btn" type="submit" value="Save">
-                                <button type="button" class="btn ghost" onclick="this.parentNode.parentNode.style.display='none'">Cancel</button>
-                            </div>
-                        </form>
-                    <?php endif; ?>
+                <div class="avatar"><?= strtoupper(substr($comment['name'] ?? 'A',0,1)) ?></div>
+                <div class="body">
+                    <div class="meta"><strong><?= htmlspecialchars($comment['name'] ?? 'User', ENT_QUOTES, 'UTF-8') ?></strong>
+                        <span style="color:var(--muted);margin-left:8px;font-size:0.9rem"><?= htmlspecialchars(date('j M Y, H:i', strtotime($comment['date'] ?? '')), ENT_QUOTES, 'UTF-8') ?></span>
+                    </div>
+                    <div class="content"><?= nl2br(htmlspecialchars($comment['content'], ENT_QUOTES, 'UTF-8')) ?></div>
                 </div>
             </div>
         <?php endforeach; ?>
     </div>
 <?php endif; ?>
 
-<?php if (!empty($_SESSION['user_id']) || !empty($_SESSION['user_role']) && $_SESSION['user_role'] === 'admin'): ?>
-    <form action="../admin/comment_post.php" method="post">
+<?php if (!empty($_SESSION['user_id']) || (!empty($_SESSION['user_role']) && $_SESSION['user_role'] === 'admin')): ?>
+    <form action="../admin/comment_post.php" method="post" class="card">
         <input type="hidden" name="action" value="add">
         <input type="hidden" name="questionid" value="<?= htmlspecialchars($question['id'], ENT_QUOTES, 'UTF-8') ?>">
         <label for="content">Add comment</label>
         <textarea name="content" id="content" required></textarea>
-        <div class="actions">
+        <div class="actions" style="display:flex;justify-content:flex-end">
             <input class="btn" type="submit" value="Post comment">
         </div>
     </form>
