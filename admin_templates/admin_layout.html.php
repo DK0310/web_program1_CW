@@ -13,8 +13,8 @@
             <nav>
                 <?php if (session_status() === PHP_SESSION_NONE) session_start(); ?>
                 <ul class="nav-tabs">
-                    <li class="<?= (isset($active) && $active === 'questions') ? 'active' : '' ?>">
-                        <a class="<?= (isset($active) && $active === 'questions') ? '' : 'ghost' ?>" href="question.php">Questions</a>
+                    <li class="<?= (isset($active) && $active === 'home') ? 'active' : '' ?>">
+                        <a class="<?= (isset($active) && $active === 'home') ? '' : 'ghost' ?>" href="question.php">Home</a></li>
                     </li>
                     <li class="<?= (isset($active) && $active === 'add') ? 'active' : '' ?>">
                         <a class="<?= (isset($active) && $active === 'add') ? '' : 'ghost' ?>" href="addquestion.php">Add</a>

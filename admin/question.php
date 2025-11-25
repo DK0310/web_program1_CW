@@ -5,7 +5,6 @@ try {
     include '../db/db_function.php';
 
     $questions = getAllQuestions($pdo);
-    // attach comments for each question so the admin template can render them like the public site
     if (!empty($questions) && is_array($questions)) {
         foreach ($questions as $i => $q) {
             $questions[$i]['comments'] = getCommentsByQuestion($pdo, $q['id']);
@@ -15,6 +14,7 @@ try {
     $title = 'Questions List';
 
     ob_start();
+    include '../admin_templates/greet.html.php';
     include '../admin_templates/admin_question.html.php'; 
     $output = ob_get_clean();
 
