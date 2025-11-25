@@ -16,7 +16,7 @@
                 <?php if (!empty($_SESSION['user_id']) && isset($question['userid']) && $_SESSION['user_id'] == $question['userid']): ?>
                     <form action="delete_post.php" method="post" onsubmit="return confirm('Are you sure you want to delete this post?');" style="display:inline">
                         <input type="hidden" name="id" value="<?= htmlspecialchars($question['id'], ENT_QUOTES, 'UTF-8') ?>">
-                        <input class="btn ghost" type="submit" value="Delete">
+                        <input class="btn btn-danger btn-small" type="submit" value="Delete">
                     </form>
                 <?php endif; ?>
             </div>

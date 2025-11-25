@@ -5,6 +5,7 @@ try {
     include '../db/db_function.php';
 
     $error = '';
+    $success = '';
     $id = $_GET['id'] ?? $_POST['id'] ?? null;
     if (!$id) throw new Exception('Missing id');
 
@@ -14,6 +15,7 @@ try {
             $error = 'Module name required.';
         } else {
             query($pdo, 'UPDATE module SET name = :name WHERE id = :id', [':name' => $name, ':id' => $id]);
+            $success = 'Module updated successfully.';
             header('Location: manage_module.php');
             exit;
         }

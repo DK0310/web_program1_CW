@@ -152,6 +152,11 @@ function getAllEmails($pdo){
     return query($pdo, $query)->fetchAll(PDO::FETCH_ASSOC);
 }
 
+function deleteEmail($pdo, $id){
+    $params = [':id' => $id];
+    query($pdo, 'DELETE FROM email WHERE id = :id', $params);
+}
+
 function getCommentsByQuestion($pdo, $questionId){
     $params = [':questionid' => $questionId];
     $query = 'SELECT comment.id, comment.content, comment.date, comment.userid, comment.questionid, comment.moduleid, user.name AS name, user.email AS email, user.role AS role FROM comment LEFT JOIN user ON comment.userid = user.id WHERE comment.questionid = :questionid ORDER BY comment.date ASC';

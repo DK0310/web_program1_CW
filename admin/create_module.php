@@ -5,12 +5,14 @@ try{
     include '../db/db_function.php';
 
     $error = '';
+    $success = '';
     if ($_SERVER['REQUEST_METHOD'] === 'POST'){
         $name = trim($_POST['name'] ?? '');
         if ($name === ''){
             $error = 'Module name required.';
         } else {
             query($pdo, 'INSERT INTO module (name) VALUES (:name)', [':name' => $name]);
+            $success = 'Module created successfully.';
             header('Location: question.php');
             exit;
         }

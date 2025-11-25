@@ -14,16 +14,19 @@
                 <?php if (session_status() === PHP_SESSION_NONE) session_start(); ?>
                 <ul class="nav-tabs">
                     <li class="<?= (isset($active) && $active === 'questions') ? 'active' : '' ?>">
-                        <a class="btn <?= (isset($active) && $active === 'questions') ? '' : 'ghost' ?>" href="question.php">Questions</a>
+                        <a class="<?= (isset($active) && $active === 'questions') ? '' : 'ghost' ?>" href="question.php">Questions</a>
                     </li>
                     <li class="<?= (isset($active) && $active === 'add') ? 'active' : '' ?>">
-                        <a class="btn <?= (isset($active) && $active === 'add') ? '' : 'ghost' ?>" href="addquestion.php">Add</a>
+                        <a class="<?= (isset($active) && $active === 'add') ? '' : 'ghost' ?>" href="addquestion.php">Add</a>
                     </li>
                     <li class="<?= (isset($active) && $active === 'modules') ? 'active' : '' ?>">
-                        <a class="btn <?= (isset($active) && $active === 'modules') ? '' : 'ghost' ?>" href="manage_module.php">Modules</a>
+                        <a class="<?= (isset($active) && $active === 'modules') ? '' : 'ghost' ?>" href="manage_module.php">Modules</a>
                     </li>
                     <li class="<?= (isset($active) && $active === 'users') ? 'active' : '' ?>">
-                        <a class="btn <?= (isset($active) && $active === 'users') ? '' : 'ghost' ?>" href="users.php">Users</a>
+                        <a class="<?= (isset($active) && $active === 'users') ? '' : 'ghost' ?>" href="users.php">Users</a>
+                    </li>
+                    <li class="<?= (isset($active) && $active === 'emails') ? 'active' : '' ?>">
+                        <a class="<?= (isset($active) && $active === 'emails') ? '' : 'ghost' ?>" href="view_emails.php">View Emails</a>
                     </li>
                 </ul>
 

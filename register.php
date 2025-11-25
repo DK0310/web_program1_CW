@@ -5,6 +5,7 @@ try{
     include 'db/db_function.php';
 
     $error = '';
+    $success = '';
     if ($_SERVER['REQUEST_METHOD'] === 'POST'){
         $name = trim($_POST['name'] ?? '');
         $email = trim($_POST['email'] ?? '');
@@ -17,14 +18,18 @@ try{
             $error = 'Passwords do not match.';
         } elseif (getUserByName($pdo, $name)){
             $error = 'Username already taken.';
+        } elseif ($email !== '' && query($pdo, 'SELECT id FROM user WHERE email = :email', [':email' => $email])->fetch(PDO::FETCH_ASSOC)){
+            $error = 'Email already registered.';
         } else {
             $hash = password_hash($password, PASSWORD_DEFAULT);
             $newId = createUser($pdo, $name, $hash, $email, 'user');
-            $_SESSION['user_id'] = $newId;
-            $_SESSION['user_name'] = $name;
-            $_SESSION['user_role'] = 'user';
-            header('Location: question.php');
-            exit;
+            if ($newId) {
+                $_SESSION['user_id'] = $newId;
+                $_SESSION['user_name'] = $name;
+                $success = 'Registration successful.';
+            } else {
+                $error = 'Could not create user.';
+            }
         }
     }
 

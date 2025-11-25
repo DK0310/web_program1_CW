@@ -16,5 +16,5 @@
     <label for="image">Upload image</label>
     <input type="file" name="image" id="image" accept="image/*"><br><br>
 
-    <input type="submit" name="submit" value="Add">
+    <input class="btn" type="submit" name="submit" value="Add">
 </form>

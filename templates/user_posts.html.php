@@ -15,10 +15,10 @@
             <?php endif; ?>
 
             <div class="actions" style="margin-top:8px">
-                <a class="btn ghost" href="edit_question.php?id=<?= urlencode($p['id']) ?>">Edit</a>
+                <a class="btn" href="edit_question.php?id=<?= urlencode($p['id']) ?>">Edit</a>
                 <form action="delete_post.php" method="post" style="display:inline" onsubmit="return confirm('Delete this post?');">
                     <input type="hidden" name="id" value="<?= htmlspecialchars($p['id'], ENT_QUOTES, 'UTF-8') ?>">
-                    <input class="btn" type="submit" value="Delete">
+                    <input class="btn btn-danger" type="submit" value="Delete">
                 </form>
             </div>
         </article>

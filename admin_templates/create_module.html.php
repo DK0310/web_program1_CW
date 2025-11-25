@@ -5,5 +5,5 @@
 <form action="" method="post">
     <label for="name">Module name</label>
     <input type="text" name="name" id="name" required><br><br>
-    <input type="submit" value="Create">
+    <input class="btn" type="submit" value="Create">
 </form>

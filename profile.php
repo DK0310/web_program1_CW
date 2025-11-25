@@ -21,12 +21,14 @@ try{
             $error = 'Name is required.';
         } elseif ($email !== '' && !filter_var($email, FILTER_VALIDATE_EMAIL)){
             $error = 'Invalid email address.';
+        } elseif ($email !== '' && query($pdo, 'SELECT id FROM user WHERE email = :email AND id != :id', [':email' => $email, ':id' => $userId])->fetch(PDO::FETCH_ASSOC)){
+            $error = 'Email already registered.';
         } else {
             updateUserProfile($pdo, $userId, $name, $email);
             $_SESSION['user_name'] = $name;
             $user['name'] = $name;
             $user['email'] = $email;
-            $success = 'change successful';
+            $success = 'Profile updated successfully.';
         }
     }
 

@@ -2,6 +2,10 @@
     <div class="errors"><?= htmlspecialchars($error, ENT_QUOTES, 'UTF-8') ?></div>
 <?php endif; ?>
 
+<?php if (!empty($success)): ?>
+    <div class="success"><?= htmlspecialchars($success, ENT_QUOTES, 'UTF-8') ?></div>
+<?php endif; ?>
+
 <form action="" method="post">
     <label for="content">Content</label><br>
     <textarea name="content" id="content" rows="4" cols="60"><?= htmlspecialchars($q['content'] ?? '', ENT_QUOTES, 'UTF-8') ?></textarea><br><br>

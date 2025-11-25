@@ -13,16 +13,12 @@
             <h1>Student Forum</h1>
             <nav>
                 <ul class="nav-tabs">
-                    <li class="<?= (isset($active) && $active === 'home') ? 'active' : '' ?>">
-                        <a class="btn <?= (isset($active) && $active === 'home') ? '' : 'ghost' ?>" href="index.php">Home</a>
-                    </li>
+                    <li class="<?= (isset($active) && $active === 'home') ? 'active' : '' ?>"><a class="btn" href="index.php">Home</a></li>
                     <?php if (!empty($_SESSION['user_id'])): ?>
-                        <li class="<?= (isset($active) && $active === 'add') ? 'active' : '' ?>">
-                            <a class="btn <?= (isset($active) && $active === 'add') ? '' : 'ghost' ?>" href="addquestion.php">New</a>
-                        </li>
-                        <li class="<?= (isset($active) && $active === 'myposts') ? 'active' : '' ?>">
-                            <a class="btn <?= (isset($active) && $active === 'myposts') ? '' : 'ghost' ?>" href="user_posts.php">My posts</a>
-                        </li>
+                        <li class="<?= (isset($active) && $active === 'add') ? 'active' : '' ?>"><a class="btn" href="addquestion.php">Create a question</a></li>
+                        <li class="<?= (isset($active) && $active === 'post') ? 'active' : '' ?>"><a class="btn" href="user_posts.php">My Posts</a></li>
+                        <li class="<?= (isset($active) && $active === 'profile') ? 'active' : '' ?>"><a class="btn" href="profile.php">My Profile</a></li>
+                        <li class="<?= (isset($active) && $active === 'send') ? 'active' : '' ?>"><a class="btn" href="send_email.php">Send Email</a></li>
                     <?php endif; ?>
                 </ul>
 
@@ -33,14 +29,15 @@
                             <button class="btn logout" type="submit">Logout</button>
                         </form>
                     <?php else: ?>
-                        <a class="btn ghost" href="login.php">Login</a>
+                        <a class="btn secondary" href="login.php">Login</a>
+                        <a class="btn" href="register.php">Register</a>
                     <?php endif; ?>
                 </div>
             </nav>
         </header>
 
         <main class="card">
-            <?= $output ?>
+            <?= $output ?? '' ?>
         </main>
 
         <footer>&copy; Greenwich Student Forum 2025</footer>

@@ -10,6 +10,7 @@ try{
 
     $modules = allModules($pdo);
     $error = '';
+    $success = '';
 
     // current admin user as author
     $userid = $_SESSION['user_id'] ?? null;
@@ -20,6 +21,7 @@ try{
     if(isset($_POST['content'])){
         $imagePath = handleImageUpload();
         insertQuestion($pdo, $_POST['content'], $userid, $_POST['moduleid'] ?? null, $imagePath);
+        $success = 'Question added successfully.';
         header('location: question.php');
         exit;
     }
