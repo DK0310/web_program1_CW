@@ -13,7 +13,36 @@ try{
 
     $error = '';
     $success = '';
-    if ($_SERVER['REQUEST_METHOD'] === 'POST'){
+    
+    // Handle account deletion
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_account'])) {
+        $confirmPassword = $_POST['confirm_password'] ?? '';
+        
+        if ($confirmPassword === '') {
+            $error = 'Please enter your password to confirm account deletion.';
+        } else {
+            // Verify password
+            $userWithPassword = query($pdo, 'SELECT password FROM user WHERE id = :id', [':id' => $userId])->fetch(PDO::FETCH_ASSOC);
+            
+            if ($userWithPassword && password_verify($confirmPassword, $userWithPassword['password'])) {
+                // Delete user account (this also deletes their questions)
+                deleteUser($pdo, $userId);
+                
+                // Destroy session
+                session_unset();
+                session_destroy();
+                
+                // Redirect to home with success message
+                header('Location: index.php');
+                exit;
+            } else {
+                $error = 'Incorrect password. Account deletion cancelled.';
+            }
+        }
+    }
+    
+    // Handle profile update
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && !isset($_POST['delete_account'])){
         $name = trim($_POST['name'] ?? '');
         $email = trim($_POST['email'] ?? '');
 
