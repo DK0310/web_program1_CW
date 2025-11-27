@@ -16,10 +16,8 @@ try{
             $error = 'Please fill required fields.';
         } elseif ($password !== $password_confirm){
             $error = 'Passwords do not match.';
-        } elseif (getUserByName($pdo, $name)){
-            $error = 'Username already taken.';
-        } elseif ($email !== '' && query($pdo, 'SELECT id FROM user WHERE email = :email', [':email' => $email])->fetch(PDO::FETCH_ASSOC)){
-            $error = 'Email already registered.';
+        } elseif (getUserByNameEmail($pdo, $name, $email)){
+            $error = 'Username or email already taken.';
         } else {
             $hash = password_hash($password, PASSWORD_DEFAULT);
             $newId = createUser($pdo, $name, $hash, $email, 'user');

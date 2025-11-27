@@ -1,9 +1,5 @@
 <?php
 session_start();
-if (empty($_SESSION['admin_id'])) {
-    header('Location: login.php');
-    exit;
-}
 try{
     include '../db/db.php';
     include '../db/db_function.php';
@@ -15,7 +11,7 @@ try{
     clearModuleFromQuestions($pdo, $id);
 
     header('Location: manage_module.php');
-    exit;
+    exit;cccccc
 } catch (Exception $e){
     $title = 'An error has occured';
     $output = 'Error: ' . htmlspecialchars($e->getMessage(), ENT_QUOTES, 'UTF-8');

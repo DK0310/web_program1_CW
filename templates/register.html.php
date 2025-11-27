@@ -18,7 +18,7 @@
     <label for="password_confirm">Confirm Password</label>
     <input type="password" name="password_confirm" id="password_confirm" required><br><br>
 
-    <input type="submit" value="Register">
+    <input class="btn" type="submit" value="Register">
 </form>
 
 <p>Already have an account? <a href="login.php">Login here</a></p>
