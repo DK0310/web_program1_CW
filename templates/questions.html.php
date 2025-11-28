@@ -3,15 +3,25 @@
     <?php foreach ($questions as $question): ?>
         <article class="question">
             <div class="meta">
-                <strong><?= htmlspecialchars($question['name'] ?? 'Anonymous', ENT_QUOTES, 'UTF-8') ?></strong>
-                <?php if (!empty($question['email'])): ?> &lt;<a href="mailto:<?=htmlspecialchars($question['email'], ENT_QUOTES, 'UTF-8')?>"><?=htmlspecialchars($question['email'], ENT_QUOTES, 'UTF-8')?></a>&gt; <?php endif; ?>
-                <div class="meta">Posted: <?=htmlspecialchars(date('j M Y', strtotime($question['date'])), ENT_QUOTES, 'UTF-8')?> • Module: <?=htmlspecialchars($question['module'] ?? '', ENT_QUOTES, 'UTF-8')?></div>
+                <?php if (!empty($question['avatar_path']) && file_exists($question['avatar_path'])): ?>
+                    <img src="<?= htmlspecialchars($question['avatar_path'], ENT_QUOTES, 'UTF-8') ?>" alt="Avatar" class="avatar-img" style="width:32px;height:32px;border-radius:50%;object-fit:cover;vertical-align:middle;margin-right:8px;">
+                <?php else: ?>
+                    <div class="avatar" style="width:32px;height:32px;border-radius:50%;background:#eaf0ff;color:#4a6cf7;display:inline-flex;align-items:center;justify-content:center;font-size:1.1em;font-weight:700;vertical-align:middle;margin-right:8px;">
+                        <?= strtoupper(substr($question['name'] ?? 'A',0,1)) ?>
+                    </div>
+                <?php endif; ?>
+                <a href="user_profile.php?id=<?= htmlspecialchars($question['userid'], ENT_QUOTES, 'UTF-8') ?>" style="font-weight:600;color:#4a6cf7;text-decoration:none;">
+                    <?= htmlspecialchars($question['name'], ENT_QUOTES, 'UTF-8') ?>
+                </a>
+                <br>
+                <span style="font-size:0.95em; color:#444;">Posted: <?=htmlspecialchars(date('j M Y', strtotime($question['date'])), ENT_QUOTES, 'UTF-8')?> • Module: <?=htmlspecialchars($question['module'] ?? '', ENT_QUOTES, 'UTF-8')?></span>
             </div>
-
             <div class="content">
                 <?= nl2br(htmlspecialchars($question['content'] ?? '', ENT_QUOTES, 'UTF-8')) ?>
             </div>
-
+            <?php if (!empty($question['image'])): ?>
+                <img src="images/<?= htmlspecialchars($question['image'], ENT_QUOTES, 'UTF-8'); ?>" alt="Post image">
+            <?php endif; ?>
             <div class="actions">
                 <?php if (!empty($_SESSION['user_id']) && isset($question['userid']) && $_SESSION['user_id'] == $question['userid']): ?>
                     <form action="delete_post.php" method="post" onsubmit="return confirm('Are you sure you want to delete this post?');" style="display:inline">
@@ -20,15 +30,9 @@
                     </form>
                 <?php endif; ?>
             </div>
-
-            <?php if (!empty($question['image'])): ?>
-                <img src="images/<?= htmlspecialchars($question['image'], ENT_QUOTES, 'UTF-8'); ?>" alt="Post image">
-            <?php endif; ?>
-
-            
-
             <?php
-                $comments = getCommentsByQuestion($pdo, $question['id']);
+                // make $comments available for the included template
+                $comments = $question['comments'] ?? [];
                 include 'comment_post.html.php';
             ?>
         </article>

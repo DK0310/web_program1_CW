@@ -9,6 +9,13 @@ try{
     include '../db/db.php';
     include '../db/db_function.php';
 
+    // Get current admin name from database for accurate display
+    $currentUserName = '';
+    if (!empty($_SESSION['user_id'])) {
+        $currentUserData = getCurrentUser($pdo, $_SESSION['user_id']);
+        $currentUserName = $currentUserData['name'] ?? $_SESSION['user_name'] ?? 'Admin';
+    }
+
     $users = allUsers($pdo);
     $title = 'Users List';
     ob_start();

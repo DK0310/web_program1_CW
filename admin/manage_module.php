@@ -1,8 +1,19 @@
 <?php
 session_start();
+if (empty($_SESSION['user_role']) || $_SESSION['user_role'] !== 'admin') {
+    header('Location: ../login.php');
+    exit;
+}
 try{
     include '../db/db.php';
     include '../db/db_function.php';
+
+    // Get current admin name from database for accurate display
+    $currentUserName = '';
+    if (!empty($_SESSION['user_id'])) {
+        $currentUserData = getCurrentUser($pdo, $_SESSION['user_id']);
+        $currentUserName = $currentUserData['name'] ?? $_SESSION['user_name'] ?? 'Admin';
+    }
 
     $modules = allModules($pdo);
     $title = 'Manage Modules';

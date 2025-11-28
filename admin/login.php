@@ -1,5 +1,15 @@
 <?php
 session_start();
+// If already logged in as admin, redirect to admin home
+if (!empty($_SESSION['user_role']) && $_SESSION['user_role'] === 'admin') {
+    header('Location: question.php');
+    exit;
+}
+// If logged in as regular user, redirect to user home
+if (!empty($_SESSION['user_id']) && (empty($_SESSION['user_role']) || $_SESSION['user_role'] !== 'admin')) {
+    header('Location: ../index.php');
+    exit;
+}
 try{
     include '../db/db.php';
     include '../db/db_function.php';

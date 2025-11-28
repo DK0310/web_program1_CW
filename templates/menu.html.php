@@ -11,20 +11,22 @@
     <div class="container">
         <header>
             <h1>Student Forum</h1>
+            <input type="checkbox" id="nav-toggle" class="nav-checkbox">
+            <label for="nav-toggle" class="nav-toggle" aria-label="Toggle navigation">☰</label>
             <nav>
-                <ul class="nav-tabs">
-                    <li class="<?= (isset($active) && $active === 'home') ? 'active' : '' ?>"><a class="btn" href="index.php">Home</a></li>
+                <ul class="nav-tabs" id="navMenu">
                     <?php if (!empty($_SESSION['user_id'])): ?>
-                        <li class="<?= (isset($active) && $active === 'add') ? 'active' : '' ?>"><a class="btn" href="addquestion.php">Create a question</a></li>
-                        <li class="<?= (isset($active) && $active === 'post') ? 'active' : '' ?>"><a class="btn" href="user_posts.php">My Posts</a></li>
-                        <li class="<?= (isset($active) && $active === 'profile') ? 'active' : '' ?>"><a class="btn" href="profile.php">My Profile</a></li>
-                        <li class="<?= (isset($active) && $active === 'send') ? 'active' : '' ?>"><a class="btn" href="send_email.php">Send Email</a></li>
+                        <li><a class="btn" href="question.php">Home</a></li>
+                        <li><a class="btn" href="addquestion.php">Create Question</a></li>
+                        <li><a class="btn" href="user_posts.php">My Post</a></li>
+                        <li><a class="btn" href="profile.php">My Profile</a></li>
+                        <li><a class="btn" href="send_email.php">Inbox Admin</a></li>
                     <?php endif; ?>
                 </ul>
 
                 <div class="nav-right">
                     <?php if (!empty($_SESSION['user_id'])): ?>
-                        <span class="nav-user"><?= htmlspecialchars($_SESSION['user_name'] ?? 'User', ENT_QUOTES, 'UTF-8') ?></span>
+                        <span class="nav-user"><?= htmlspecialchars($currentUserName ?? $_SESSION['user_name'] ?? 'User', ENT_QUOTES, 'UTF-8') ?></span>
                         <form action="logout.php" method="post" style="display:inline;margin:0">
                             <button class="btn logout" type="submit">Logout</button>
                         </form>

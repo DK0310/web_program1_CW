@@ -1,4 +1,20 @@
 <?php
+/**
+ * Get avatar path with proper prefix handling
+ * @param string $userImage - the user_image value from database
+ * @param string $prefix - prefix for admin pages (e.g., '../') or empty for user pages
+ * @return string - the full avatar path or empty string
+ */
+function getAvatarPath($userImage, $prefix = '') {
+    if (empty($userImage)) {
+        return '';
+    }
+    if (strpos($userImage, 'images/') === 0) {
+        return $prefix . $userImage;
+    }
+    return $prefix . 'images/' . $userImage;
+}
+
 function insertQuestion($pdo, $content, $userid, $moduleid, $imagePath){
     $query = 'INSERT INTO question (content, date, userid, moduleid, image_path) 
             VALUES (:content, NOW(), :userid, :moduleid, :image_path)';
@@ -18,7 +34,7 @@ function deleteQuestion($pdo, $questionid){
 }
 
 function getAllQuestions($pdo){
-    $query = 'SELECT question.id, question.content, question.date, question.image_path AS image, question.userid AS userid, user.name AS name, user.email AS email, module.name AS module FROM question LEFT JOIN user ON question.userid = user.id LEFT JOIN module ON question.moduleid = module.id ORDER BY question.id DESC';
+    $query = 'SELECT question.id, question.content, question.date, question.image_path AS image, question.userid AS userid, user.name AS name, user.email AS email, user.user_image AS user_image, module.name AS module FROM question LEFT JOIN user ON question.userid = user.id LEFT JOIN module ON question.moduleid = module.id ORDER BY question.id DESC';
     return query($pdo, $query)->fetchAll(PDO::FETCH_ASSOC);
 }
 
@@ -102,6 +118,11 @@ function getUserByNameEmail($pdo, $name, $email){
     return query($pdo, 'SELECT * FROM user WHERE name = :name OR email = :email', $paraments)->fetch(PDO::FETCH_ASSOC);
 }
 
+function getCurrentUser($pdo, $id){
+    $paraments = [':id' => $id];
+    return query($pdo, 'SELECT name, email FROM user WHERE id = :id', $paraments)->fetch(PDO::FETCH_ASSOC);
+}
+
 function createUser($pdo, $name, $passwordHash, $email = null, $role = 'user'){
     $query = 'INSERT INTO user (name, password, email, role) VALUES (:name, :password, :email, :role)';
     $paraments = [
@@ -159,7 +180,7 @@ function deleteEmail($pdo, $id){
 
 function getCommentsByQuestion($pdo, $questionId){
     $params = [':questionid' => $questionId];
-    $query = 'SELECT comment.id, comment.content, comment.date, comment.userid, comment.questionid, comment.moduleid, user.name AS name, user.email AS email, user.role AS role FROM comment LEFT JOIN user ON comment.userid = user.id WHERE comment.questionid = :questionid ORDER BY comment.date ASC';
+    $query = 'SELECT comment.id, comment.content, comment.date, comment.userid, comment.questionid, comment.moduleid, user.name AS name, user.email AS email, user.role AS role, user.user_image AS user_image FROM comment LEFT JOIN user ON comment.userid = user.id WHERE comment.questionid = :questionid ORDER BY comment.date ASC';
     return query($pdo, $query, $params)->fetchAll(PDO::FETCH_ASSOC);
 }
 

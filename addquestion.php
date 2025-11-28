@@ -23,6 +23,14 @@ if(isset($_POST['content'])){
 }else{
     include 'db/db.php'; 
     include 'db/db_function.php';
+    
+    // Get current user name from database for accurate display
+    $currentUserName = '';
+    if (!empty($_SESSION['user_id'])) {
+        $currentUserData = getCurrentUser($pdo, $_SESSION['user_id']);
+        $currentUserName = $currentUserData['name'] ?? $_SESSION['user_name'] ?? 'User';
+    }
+    
     $title = 'Add a new question';
     $modules = allModules($pdo);
     ob_start();

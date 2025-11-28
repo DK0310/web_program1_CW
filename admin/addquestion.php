@@ -8,11 +8,19 @@ try{
     include '../db/db.php';
     include '../db/db_function.php';
 
+    // Get current admin name from database for accurate display
+    $currentUserName = '';
+    if (!empty($_SESSION['user_id'])) {
+        $currentUserData = getCurrentUser($pdo, $_SESSION['user_id']);
+        $currentUserName = $currentUserData['name'] ?? $_SESSION['user_name'] ?? 'Admin';
+    }
+
     $modules = allModules($pdo);
     $error = '';
     $success = '';
 
     // current admin user as author
+
     $userid = $_SESSION['user_id'] ?? null;
     if (empty($userid)) {
         throw new Exception('Admin user not identified in session.');

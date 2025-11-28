@@ -4,10 +4,16 @@
     <div class="comments">
         <?php foreach ($comments as $comment): ?>
             <div class="comment">
-                <div class="avatar"><?= strtoupper(substr($comment['name'] ?? 'A',0,1)) ?></div>
+                <?php if (!empty($comment['avatar_path']) && file_exists($comment['avatar_path'])): ?>
+                    <img src="<?= htmlspecialchars($comment['avatar_path'], ENT_QUOTES, 'UTF-8') ?>" alt="Avatar" class="avatar-img" style="width:32px;height:32px;border-radius:50%;object-fit:cover;">
+                <?php else: ?>
+                    <div class="avatar"><?= strtoupper(substr($comment['name'] ?? 'A',0,1)) ?></div>
+                <?php endif; ?>
                 <div class="body">
                     <div class="meta">
-                        <strong><?= htmlspecialchars($comment['name'] ?? 'User', ENT_QUOTES, 'UTF-8') ?></strong>
+                        <a href="../user_profile.php?id=<?= htmlspecialchars($comment['userid'], ENT_QUOTES, 'UTF-8') ?>" style="font-weight:600;color:#4a6cf7;text-decoration:none;">
+                            <?= htmlspecialchars($comment['name'] ?? 'User', ENT_QUOTES, 'UTF-8') ?>
+                        </a>
                         <?php if (!empty($comment['role']) && $comment['role'] === 'admin'): ?>
                             <span style="background:#4a6cf7;color:white;padding:2px 8px;border-radius:10px;font-size:0.75em;">ADMIN</span>
                         <?php elseif (isset($question['userid']) && $comment['userid'] == $question['userid']): ?>

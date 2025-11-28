@@ -11,6 +11,13 @@ try{
     }
 
     $error = '';
+    $success = '';
+    
+    // Get current user info from database (not session) to ensure up-to-date data
+    $currentUser = getCurrentUser($pdo, $_SESSION['user_id']);
+    $userName = $currentUser['name'] ?? $_SESSION['user_name'] ?? 'Unknown';
+    $currentUserName = $userName; // For nav display
+    
     if ($_SERVER['REQUEST_METHOD'] === 'POST'){
         $content = trim($_POST['content'] ?? '');
         if ($content === ''){
@@ -41,7 +48,7 @@ try{
 
                     $mail->setFrom($from, $fromName);
                     $mail->addAddress($adminTo);
-                    $mail->Subject = 'New message from user ' . ($_SESSION['user_name'] ?? '');
+                    $mail->Subject = 'New message from user ' . $userName;
                     $mail->Body = $content;
                     $mail->isHTML(false);
 
