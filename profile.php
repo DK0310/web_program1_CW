@@ -25,7 +25,6 @@ try{
             $userWithPassword = query($pdo, 'SELECT password FROM user WHERE id = :id', [':id' => $userId])->fetch(PDO::FETCH_ASSOC);
             
             if ($userWithPassword && password_verify($confirmPassword, $userWithPassword['password'])) {
-                // Delete user account (this also deletes their questions)
                 deleteUser($pdo, $userId);
                 
                 // Destroy session

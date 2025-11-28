@@ -19,5 +19,5 @@
         <?php endforeach; ?>
     </select><br><br>
 
-    <input type="submit" value="Save">
+    <input class="btn" type="submit" value="Save">
 </form>
