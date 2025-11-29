@@ -9,7 +9,7 @@
                         <?= strtoupper(substr($question['name'] ?? 'A',0,1)) ?>
                     </div>
                 <?php endif; ?>
-                <a href="../user_profile.php?id=<?= htmlspecialchars($question['userid'], ENT_QUOTES, 'UTF-8') ?>" style="font-weight:600;color:#4a6cf7;text-decoration:none;">
+                <a href="../admin/user_profile.php?id=<?= htmlspecialchars($question['userid'], ENT_QUOTES, 'UTF-8') ?>" style="font-weight:600;color:#4a6cf7;text-decoration:none;">
                     <?= htmlspecialchars($question['name'] ?? 'Anonymous', ENT_QUOTES, 'UTF-8') ?>
                 </a>
                 <span style="font-size:0.95em; color:#444; margin-left:8px;">Posted: <?=htmlspecialchars(!empty($question['date']) ? date('j M Y', strtotime($question['date'])) : '', ENT_QUOTES, 'UTF-8')?> • Module: <?=htmlspecialchars($question['module'] ?? '', ENT_QUOTES, 'UTF-8')?></span>

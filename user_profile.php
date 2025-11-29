@@ -21,14 +21,12 @@ if (!$user) {
 // Calculate avatar path in PHP (logic)
 $upAvatarPath = getAvatarPath($user['user_image'] ?? '', '');
 
-// Detect if coming from admin area (via referer or admin session)
-$isFromAdmin = !empty($_SESSION['user_role']) && $_SESSION['user_role'] === 'admin';
-$backUrl = $isFromAdmin ? 'admin/question.php' : 'index.php';
-$backText = $isFromAdmin ? 'Back to Admin' : 'Back to Home';
+$backUrl = 'index.php';
+$backText = 'Back to Home';
 
 $title = htmlspecialchars($user['name'], ENT_QUOTES, 'UTF-8') . "'s Profile";
 
-// Capture UI template output
+
 ob_start();
 include 'templates/user_profile.html.php';
 $output = ob_get_clean();
