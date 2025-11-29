@@ -21,10 +21,12 @@
             <h2 class="profile-name">
                 <?= htmlspecialchars($user['name'], ENT_QUOTES, 'UTF-8') ?>
             </h2>
+            <?php if (!empty($_SESSION['user_role']) && $_SESSION['user_role'] === 'admin'): ?>
             <div class="profile-email">
                 <span style="font-size:1.1em;">✉</span>
                 <?= htmlspecialchars($user['email'] ?? 'No email', ENT_QUOTES, 'UTF-8') ?>
             </div>
+            <?php endif; ?>
         </div>
     </div>
     

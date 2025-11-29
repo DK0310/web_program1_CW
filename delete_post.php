@@ -1,5 +1,6 @@
 <?php
 session_start();
+
 try{
     include 'db/db.php';
     include 'db/db_function.php';

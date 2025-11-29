@@ -7,7 +7,14 @@ $mailConfig = include __DIR__ . '/config/mail.php';
 
 $email = trim($_POST['email'] ?? '');
 if ($email === '') {
-    header("Location: forgot.php?sent=1");
+    header("Location: forgot.php?error=empty");
+    exit;
+}
+
+// Check if email exists in database
+$user = getUserIdFromEmail($pdo, $email);
+if (!$user) {
+    header("Location: forgot.php?error=notfound");
     exit;
 }
 

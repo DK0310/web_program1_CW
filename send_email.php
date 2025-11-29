@@ -59,16 +59,6 @@ try{
                 }
             }
 
-            /*if (!$sent) {
-                // fallback
-                $to = $mailConfig['admin_address'] ?? 'admin@example.com';
-                $subject = 'New message from user ' . ($_SESSION['user_name'] ?? '');
-                $headers = 'From: ' . ($mailConfig['from_address'] ?? 'no-reply@example.com') . "\r\n" .
-                           'Reply-To: ' . ($mailConfig['from_address'] ?? 'no-reply@example.com') . "\r\n" .
-                           'X-Mailer: PHP/' . phpversion();
-                @mail($to, $subject, $content, $headers);
-            }*/
-
             header('Location: question.php');
             exit;
         }

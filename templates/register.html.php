@@ -39,10 +39,10 @@
         <br><br>
 
         <label for="password">Password <span style="color:red;">*</span></label>
-        <input type="password" name="password" id="password" required><br><br>
+        <input type="password" name="password" id="password" required minlength="8"><br><br>
 
         <label for="password_confirm">Confirm Password <span style="color:red;">*</span></label>
-        <input type="password" name="password_confirm" id="password_confirm" required><br><br>
+        <input type="password" name="password_confirm" id="password_confirm" required minlength="8"><br><br>
 
         <input class="btn" type="submit" name="send_code" value="Send Verification Code">
     </form>

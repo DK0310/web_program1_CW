@@ -123,6 +123,26 @@ function getCurrentUser($pdo, $id){
     return query($pdo, 'SELECT name, email FROM user WHERE id = :id', $paraments)->fetch(PDO::FETCH_ASSOC);
 }
 
+function getUserProfile($pdo, $id){
+    $paraments = [':id' => $id];
+    return query($pdo, 'SELECT id, name, email, user_image, description FROM user WHERE id = :id', $paraments)->fetch(PDO::FETCH_ASSOC);
+}
+
+function getUserPassword($pdo, $id){
+    $paraments = [':id' => $id];
+    return query($pdo, 'SELECT password FROM user WHERE id = :id', $paraments)->fetch(PDO::FETCH_ASSOC);
+}
+
+function getUserIdFromEmail($pdo, $email){
+    $paraments = [':email' => $email];
+    return query($pdo, 'SELECT id FROM user WHERE email = :email', $paraments)->fetch(PDO::FETCH_ASSOC);
+}
+
+function isEmailTakenByOther($pdo, $email, $excludeUserId){
+    $paraments = [':email' => $email, ':id' => $excludeUserId];
+    return query($pdo, 'SELECT id FROM user WHERE email = :email AND id != :id', $paraments)->fetch(PDO::FETCH_ASSOC);
+}
+
 function createUser($pdo, $name, $passwordHash, $email = null, $role = 'user'){
     $query = 'INSERT INTO user (name, password, email, role) VALUES (:name, :password, :email, :role)';
     $paraments = [
@@ -135,12 +155,14 @@ function createUser($pdo, $name, $passwordHash, $email = null, $role = 'user'){
     return $pdo->lastInsertId();
 }
 
-function updateUserProfile($pdo, $id, $name, $email){
-    $query = 'UPDATE user SET name = :name, email = :email WHERE id = :id';
+function updateUserProfile($pdo, $id, $name, $email, $user_image, $description){
+    $query = 'UPDATE user SET name = :name, email = :email, user_image = :user_image, description = :description WHERE id = :id';
     $paraments = [
         ':id' => $id,
         ':name' => $name,
-        ':email' => $email
+        ':email' => $email,
+        ':user_image' => $user_image,
+        ':description' => $description
     ];
     query($pdo, $query, $paraments);
 }

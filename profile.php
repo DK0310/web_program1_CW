@@ -31,7 +31,7 @@ try{
             $error = 'Please enter your password to confirm account deletion.';
         } else {
             // Verify password
-            $userWithPassword = query($pdo, 'SELECT password FROM user WHERE id = :id', [':id' => $userId])->fetch(PDO::FETCH_ASSOC);
+            $userWithPassword = getUserPassword($pdo, $userId);
             
             if ($userWithPassword && password_verify($confirmPassword, $userWithPassword['password'])) {
                 deleteUser($pdo, $userId);
@@ -63,13 +63,7 @@ try{
             // Code correct - update profile with new email
             $data = $_SESSION['email_change_data'];
             
-            query($pdo, 'UPDATE user SET name = :name, email = :email, user_image = :user_image, description = :description WHERE id = :id', [
-                ':name' => $data['name'],
-                ':email' => $data['new_email'],
-                ':user_image' => $data['user_image'],
-                ':description' => $data['description'],
-                ':id' => $userId
-            ]);
+            updateUserProfile($pdo, $userId, $data['name'], $data['new_email'], $data['user_image'], $data['description']);
             
             // Update session
             $_SESSION['user_name'] = $data['name'];
@@ -80,7 +74,7 @@ try{
             unset($_SESSION['email_change_code'], $_SESSION['email_change_data'], $_SESSION['email_change_expires']);
             
             $success = 'Profile and email updated successfully.';
-            $user = query($pdo, 'SELECT id, name, email, user_image, description FROM user WHERE id = :id', [':id' => $userId])->fetch(PDO::FETCH_ASSOC);
+            $user = getUserProfile($pdo, $userId);
         } else {
             $error = 'Incorrect verification code.';
             $showEmailVerifyForm = true;
@@ -110,9 +104,9 @@ try{
             }
         }
         
-        // Email duplicate check
-        if (!empty($email)) {
-            $exists = query($pdo, 'SELECT id FROM user WHERE email = :email AND id != :id', [':email' => $email, ':id' => $userId])->fetch(PDO::FETCH_ASSOC);
+        // Email duplicate check (exclude current user)
+        if (!empty($email) && $email !== ($user['email'] ?? '')) {
+            $exists = isEmailTakenByOther($pdo, $email, $userId);
             if ($exists) {
                 $error = 'Email already in use.';
             }

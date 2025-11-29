@@ -10,7 +10,7 @@ if (!$userId) {
     include 'templates/menu.html.php';
     exit;
 }
-$user = query($pdo, 'SELECT id, name, email, user_image, description FROM user WHERE id = :id', [':id' => $userId])->fetch(PDO::FETCH_ASSOC);
+$user = getUserProfile($pdo, $userId);
 if (!$user) {
     $title = 'User Profile';
     $output = '<div class="errors">User not found.</div>';

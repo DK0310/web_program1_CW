@@ -1,6 +1,9 @@
 <?php
 session_start();
-
+if (isset($_SESSION['user_role']) && $_SESSION['user_role'] === 'admin') {
+    header('Location: admin/question.php');
+    exit;
+}
 // If logged in, redirect to appropriate question page
 if (!empty($_SESSION['user_id'])) {
     if (!empty($_SESSION['user_role']) && $_SESSION['user_role'] === 'admin') {
