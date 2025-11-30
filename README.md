@@ -104,12 +104,14 @@ cw/
    composer install
    ```
 
+For downloading composer, please follow: https://getcomposer.org/
+
 4. **Configure database**
    - Create a MySQL database
    - Import the database schema (if provided)
    - Update `db/db.php` with your database credentials
 
-5. **Configure email (optional)**
+5. **Configure email**
    - Edit `config/mail.php` with your SMTP settings
    ```php
    return [
@@ -139,6 +141,36 @@ cw/
 | Role  | Username | Password |
 |-------|----------|----------|
 | Admin | admin    | (set during installation) |
+
+### Creating an Admin Account
+
+To grant admin privileges to an existing user, update the `user_role` field in the database:
+
+1. **Open phpMyAdmin**
+   - Go to `http://localhost/phpmyadmin`
+
+2. **Select your database** and open the `user` table (or your user table name)
+
+3. **Run SQL query** to update a user's role to admin:
+   ```sql
+   UPDATE user SET user_role = 'admin' WHERE user_email = 'your-email@example.com';
+   ```
+   
+   Or by user ID:
+   ```sql
+   UPDATE user SET user_role = 'admin' WHERE user_id = 1;
+   ```
+
+4. **Alternative: Manual Edit**
+   - Click on the user record you want to modify
+   - Change `user_role` from `user` to `admin`
+   - Click **Save**
+
+5. **Access Admin Panel**
+   - Navigate to `http://localhost/COMP1841/cw/login.php
+   - Logout all account
+   - Login with the updated account
+   
 
 ## 📱 Responsive Design
 
