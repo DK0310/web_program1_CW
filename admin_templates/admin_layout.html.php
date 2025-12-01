@@ -10,9 +10,11 @@
     <div class="container">
         <header>
             <h1>Admin Panel</h1>
+            <input type="checkbox" id="nav-toggle" class="nav-checkbox">
+            <label for="nav-toggle" class="nav-toggle" aria-label="Toggle navigation">☰</label>
             <nav>
                 <?php if (session_status() === PHP_SESSION_NONE) session_start(); ?>
-                <ul class="nav-tabs">
+                <ul class="nav-tabs" id="navMenu">
                     <li class="<?= (isset($active) && $active === 'home') ? 'active' : '' ?>">
                         <a class="<?= (isset($active) && $active === 'home') ? '' : 'ghost' ?>" href="question.php">Home</a></li>
                     </li>
