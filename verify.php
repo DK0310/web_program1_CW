@@ -14,7 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     elseif ($inputCode == ($_SESSION['reset_code'] ?? '')) {
         // verified OK
         $_SESSION['verified'] = true;
-        header("Location: sendpass.php");
+        header("Location: updatepass.php");
         exit;
     } else {
         $error = "Incorrect verification code.";
@@ -22,6 +22,3 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 include 'templates/verify.html.php';
 ?>
-
-
-<p style="color:red;"><?= htmlspecialchars($error) ?></p>
