@@ -42,7 +42,7 @@
                         <a class="btn ghost" href="../index.php">Back to site</a>
                     <?php endif; ?>
                 </div>
-            </nav>
+            </nav>`
         </header>
 
         <main class="card">
